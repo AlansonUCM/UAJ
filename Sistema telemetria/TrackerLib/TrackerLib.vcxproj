@@ -19,42 +19,59 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\tracker.h" />
-    <ClInclude Include="src\trackerCore.h" />
+    <ClInclude Include="src\CSVSerializer.h" />
+    <ClInclude Include="src\FilePersistence.h" />
+    <ClInclude Include="src\IPersistence.h" />
+    <ClInclude Include="src\ISerializer.h" />
+    <ClInclude Include="src\ITrackerAsset.h" />
+    <ClInclude Include="src\JSONSerializer.h" />
+    <ClInclude Include="src\ProgressionEvent.h" />
+    <ClInclude Include="src\ProgressionTracker.h" />
+    <ClInclude Include="src\ServerPersistence.h" />
+    <ClInclude Include="src\Tracker.h" />
+    <ClInclude Include="src\TrackerCore.h" />
+    <ClInclude Include="src\TrackerEvent.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\tracker.cpp" />
+    <ClCompile Include="src\CSVSerializer.cpp" />
+    <ClCompile Include="src\FilePersistence.cpp" />
+    <ClCompile Include="src\JSONSerializer.cpp" />
+    <ClCompile Include="src\ProgressionEvent.cpp" />
+    <ClCompile Include="src\ProgressionTracker.cpp" />
+    <ClCompile Include="src\ServerPersistence.cpp" />
+    <ClCompile Include="src\Tracker.cpp" />
+    <ClCompile Include="src\TrackerEvent.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{6403BAB0-B62C-468C-9E02-FC0A9CE4A031}</ProjectGuid>
     <RootNamespace>TrackerLib</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
