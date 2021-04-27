@@ -104,5 +104,8 @@
     <ClCompile Include="src\src\TrackerAssets\BossActionTracker.cpp">
       <Filter>Archivos de origen\TrackerAssets</Filter>
     </ClCompile>
+    <ClCompile Include="src\src\main.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

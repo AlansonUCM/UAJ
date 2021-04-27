@@ -7,6 +7,13 @@
 #include "FilePersistence.h"
 #include "ServerPersistence.h"
 
+#include "json.hpp"
+
+#include <fstream>
+#include <string>
+
+using json = nlohmann::json;
+
 Tracker* Tracker::instance = nullptr;
 
 Tracker::Tracker()
@@ -22,8 +29,13 @@ Tracker::~Tracker()
 void Tracker::init()
 {
 	// Lee el fichero .config y configura el tracker
-	std::string persistenceType = "File";
-	std::string serializerType = "JSON";
+	std::ifstream file(".config");
+	json j;
+	file >> j;
+
+	std::string persistenceType = "File";//j["persistence"];
+	std::string serializerType = "JSON";//j["serializer"];
+	//std::string serializerType = j["deactivatedEvents"];
 
 	// Inicializa sistema de persistencia y serializacion
 	// TODO: mejor una factoria
