@@ -8,5 +8,5 @@ CSVSerializer::CSVSerializer()
 
 std::string CSVSerializer::serialize(TrackerEvent e)
 {
-	return std::string();
+	return e.toCSV();
 }
