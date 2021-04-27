@@ -2,13 +2,18 @@
 
 #include "IPersistence.h"
 
-class ServerPersistence
+class ServerPersistence : public IPersistence
 {
 private:
 
 
 public:
 	ServerPersistence();
+	~ServerPersistence();
+
+	virtual void init(const std::string& type);
+
+	virtual void update();
 
 	virtual void send(TrackerEvent e);
 	virtual void flush();

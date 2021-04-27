@@ -9,6 +9,6 @@ private:
 
 
 public:
-	virtual std::string serialize(TrackerEvent e) = 0;
+	virtual std::string serialize(const TrackerEvent& e) = 0;
 
 };

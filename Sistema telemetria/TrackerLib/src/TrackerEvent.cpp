@@ -12,9 +12,18 @@ void TrackerEvent::setType(EventType type)
 	this->type = type;
 }
 
-EventType TrackerEvent::getType()
+void TrackerEvent::setName(EventName name)
+{
+}
+
+EventType TrackerEvent::getType() const
 {
 	return type;
+}
+
+EventName TrackerEvent::getName() const
+{
+	return EventName();
 }
 
 void TrackerEvent::setSessionID(int sessionID)
@@ -22,7 +31,7 @@ void TrackerEvent::setSessionID(int sessionID)
 	this->sessionID = sessionID;
 }
 
-int TrackerEvent::getSessionID()
+int TrackerEvent::getSessionID() const
 {
 	return sessionID;
 }
@@ -32,12 +41,12 @@ void TrackerEvent::setTimestamp(float timestamp)
 	this->timestamp = timestamp;
 }
 
-float TrackerEvent::getTimestamp()
+float TrackerEvent::getTimestamp() const
 {
 	return timestamp;
 }
 
-std::string TrackerEvent::toJSON()
+std::string TrackerEvent::toJSON() const
 {
 	json j;
 	j["type"] = type;
@@ -46,7 +55,7 @@ std::string TrackerEvent::toJSON()
 	return j.dump();
 }
 
-std::string TrackerEvent::toCSV()
+std::string TrackerEvent::toCSV() const
 {
 	std::string typeString = "type," + std::to_string((int)type) + "\n";
 	std::string sessionIDString = "sessionID," + std::to_string(sessionID) + "\n";

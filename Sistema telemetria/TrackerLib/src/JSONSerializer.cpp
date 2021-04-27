@@ -6,7 +6,7 @@ JSONSerializer::JSONSerializer()
 
 }
 
-std::string JSONSerializer::serialize(TrackerEvent e)
+std::string JSONSerializer::serialize(const TrackerEvent& e)
 {
 	return e.toJSON();
 }
