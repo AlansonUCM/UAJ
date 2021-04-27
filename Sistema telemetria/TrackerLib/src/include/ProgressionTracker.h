@@ -5,11 +5,9 @@
 class ProgressionTracker : public ITrackerAsset
 {
 private:
-	//enum EventType
 
 public:
 	ProgressionTracker();
 
 	bool accept(TrackerEvent e);
-
 };

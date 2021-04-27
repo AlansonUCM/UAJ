@@ -2,16 +2,15 @@
 
 #include "IPersistence.h"
 
-class ServerPersistence : public IPersistence
+class FilePersistence : public IPersistence
 {
-private:
-
 
 public:
-	ServerPersistence();
-	~ServerPersistence();
+	FilePersistence();
+	~FilePersistence();
 
 	virtual void init(const std::string& type);
+	virtual void end();
 
 	virtual void update();
 

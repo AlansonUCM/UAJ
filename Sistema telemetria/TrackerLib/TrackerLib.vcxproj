@@ -19,29 +19,33 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\CSVSerializer.h" />
-    <ClInclude Include="src\FilePersistence.h" />
-    <ClInclude Include="src\IPersistence.h" />
-    <ClInclude Include="src\ISerializer.h" />
-    <ClInclude Include="src\ITrackerAsset.h" />
-    <ClInclude Include="src\json.hpp" />
-    <ClInclude Include="src\JSONSerializer.h" />
-    <ClInclude Include="src\ProgressionEvent.h" />
-    <ClInclude Include="src\ProgressionTracker.h" />
-    <ClInclude Include="src\ServerPersistence.h" />
-    <ClInclude Include="src\Tracker.h" />
-    <ClInclude Include="src\TrackerCore.h" />
-    <ClInclude Include="src\TrackerEvent.h" />
+    <ClInclude Include="src\include\BossActionTracker.h" />
+    <ClInclude Include="src\include\ConcurrentQueue.h" />
+    <ClInclude Include="src\include\CSVSerializer.h" />
+    <ClInclude Include="src\include\FilePersistence.h" />
+    <ClInclude Include="src\include\IPersistence.h" />
+    <ClInclude Include="src\include\ISerializer.h" />
+    <ClInclude Include="src\include\ITrackerAsset.h" />
+    <ClInclude Include="src\include\JSONSerializer.h" />
+    <ClInclude Include="src\include\PlayerActionTracker.h" />
+    <ClInclude Include="src\include\ProgressionEvent.h" />
+    <ClInclude Include="src\include\ProgressionTracker.h" />
+    <ClInclude Include="src\include\ServerPersistence.h" />
+    <ClInclude Include="src\include\Tracker.h" />
+    <ClInclude Include="src\include\TrackerExports.h" />
+    <ClInclude Include="src\include\TrackerEvent.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\CSVSerializer.cpp" />
-    <ClCompile Include="src\FilePersistence.cpp" />
-    <ClCompile Include="src\JSONSerializer.cpp" />
-    <ClCompile Include="src\ProgressionEvent.cpp" />
-    <ClCompile Include="src\ProgressionTracker.cpp" />
-    <ClCompile Include="src\ServerPersistence.cpp" />
-    <ClCompile Include="src\Tracker.cpp" />
-    <ClCompile Include="src\TrackerEvent.cpp" />
+    <ClCompile Include="src\src\Persistance\FilePersistence.cpp" />
+    <ClCompile Include="src\src\Persistance\ServerPersistence.cpp" />
+    <ClCompile Include="src\src\Serialization\CSVSerializer.cpp" />
+    <ClCompile Include="src\src\Serialization\JSONSerializer.cpp" />
+    <ClCompile Include="src\src\Tracker.cpp" />
+    <ClCompile Include="src\src\TrackerAssets\BossActionTracker.cpp" />
+    <ClCompile Include="src\src\TrackerAssets\PlayerActionTracker.cpp" />
+    <ClCompile Include="src\src\TrackerAssets\ProgressionTracker.cpp" />
+    <ClCompile Include="src\src\TrackerEvents\ProgressionEvent.cpp" />
+    <ClCompile Include="src\src\TrackerEvents\TrackerEvent.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -98,28 +102,33 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)inter\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)src\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)inter\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)src\include;$(IncludePath)$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)inter\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)src\include;$(IncludePath)$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)inter\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)src\include;$(IncludePath)$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;TRACKERCORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;TRACKER_CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\json</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,8 +139,9 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;TRACKERCORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;TRACKER_CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\json</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,8 +154,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;TRACKERCORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;TRACKER_CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\json;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -160,8 +171,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;TRACKERCORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;TRACKER_CORE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)dependencies\json</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

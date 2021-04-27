@@ -21,6 +21,11 @@ void FilePersistence::init(const std::string& type)
 		serializer = new CSVSerializer();
 }
 
+void FilePersistence::end()
+{
+	exit = true;
+}
+
 void FilePersistence::update()
 {
 	while (!exit)
@@ -39,7 +44,6 @@ void FilePersistence::update()
 			e.getName() == EventName::EndSession &&
 			e.getName() == EventName::PlayerDie)
 			flush();
-
 	}
 }
 

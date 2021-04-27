@@ -1,6 +1,8 @@
 
 #include "CSVSerializer.h"
 
+#include "TrackerEvent.h"
+
 CSVSerializer::CSVSerializer()
 {
 

@@ -1,6 +1,8 @@
 
 #include "JSONSerializer.h"
 
+#include "TrackerEvent.h"
+
 JSONSerializer::JSONSerializer()
 {
 

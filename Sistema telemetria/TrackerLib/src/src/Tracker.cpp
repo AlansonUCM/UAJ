@@ -1,5 +1,9 @@
 #include "Tracker.h"
 
+#include "IPersistence.h"
+#include "ITrackerAsset.h"
+#include "TrackerEvent.h"
+
 #include "FilePersistence.h"
 #include "ServerPersistence.h"
 

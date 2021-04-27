@@ -2,9 +2,10 @@
 
 #include <queue>
 
-#include "ISerializer.h"
-#include "TrackerEvent.h"
 #include "ConcurrentQueue.h"
+#include "TrackerEvent.h"
+
+class ISerializer;
 
 class IPersistence
 {
@@ -12,7 +13,8 @@ private:
 
 protected:
 	enum class PersistenceMode { Checkpoint, Timed };
-	PersistenceMode mode;
+	PersistenceMode mode = PersistenceMode::Checkpoint;
+	bool exit = false;
 
 	ISerializer* serializer = nullptr;
 	ConcurrentQueue<TrackerEvent> eventQueue;
@@ -21,6 +23,7 @@ protected:
 
 public:
 	virtual void init(const std::string& type) = 0;
+	virtual void end() = 0;
 
 	virtual void update() = 0;
 
