@@ -5,11 +5,11 @@
 class IPersistence
 {
 private:
-	ISerializer* serializer=nullptr;
+	const ISerializer* serializer=nullptr;
 
 public:
 
-	void setSerializer(ISerializer* serial);
+	void setSerializer(const ISerializer* serial);
 	virtual void send(TrackerEvent e) = 0;
 	virtual void flush() = 0;
 

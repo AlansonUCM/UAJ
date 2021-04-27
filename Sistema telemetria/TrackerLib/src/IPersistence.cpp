@@ -1,6 +1,6 @@
 #include "IPersistence.h"
 
-void IPersistence::setSerializer(ISerializer* serial)
+void IPersistence::setSerializer(const ISerializer* serial)
 {
 	serializer = serial;
 }
