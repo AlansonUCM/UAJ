@@ -36,6 +36,7 @@
   <ItemGroup>
     <ClCompile Include="src\CSVSerializer.cpp" />
     <ClCompile Include="src\FilePersistence.cpp" />
+    <ClCompile Include="src\IPersistence.cpp" />
     <ClCompile Include="src\JSONSerializer.cpp" />
     <ClCompile Include="src\ProgressionEvent.cpp" />
     <ClCompile Include="src\ProgressionTracker.cpp" />
