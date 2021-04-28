@@ -23,6 +23,7 @@
     <ClInclude Include="src\include\ConcurrentQueue.h" />
     <ClInclude Include="src\include\CSVSerializer.h" />
     <ClInclude Include="src\include\FilePersistence.h" />
+    <ClInclude Include="src\include\InstantaneousEvent.h" />
     <ClInclude Include="src\include\IPersistence.h" />
     <ClInclude Include="src\include\ISerializer.h" />
     <ClInclude Include="src\include\ITrackerAsset.h" />
@@ -30,7 +31,9 @@
     <ClInclude Include="src\include\PlayerActionTracker.h" />
     <ClInclude Include="src\include\ProgressionEvent.h" />
     <ClInclude Include="src\include\ProgressionTracker.h" />
+    <ClInclude Include="src\include\SamplingEvent.h" />
     <ClInclude Include="src\include\ServerPersistence.h" />
+    <ClInclude Include="src\include\TimeBaseEvent.h" />
     <ClInclude Include="src\include\Tracker.h" />
     <ClInclude Include="src\include\TrackerExports.h" />
     <ClInclude Include="src\include\TrackerEvent.h" />
@@ -45,7 +48,10 @@
     <ClCompile Include="src\src\TrackerAssets\BossActionTracker.cpp" />
     <ClCompile Include="src\src\TrackerAssets\PlayerActionTracker.cpp" />
     <ClCompile Include="src\src\TrackerAssets\ProgressionTracker.cpp" />
+    <ClCompile Include="src\src\TrackerEvents\InstantaneousEvent.cpp" />
     <ClCompile Include="src\src\TrackerEvents\ProgressionEvent.cpp" />
+    <ClCompile Include="src\src\TrackerEvents\SamplingEvent.cpp" />
+    <ClCompile Include="src\src\TrackerEvents\TimeBaseEvent.cpp" />
     <ClCompile Include="src\src\TrackerEvents\TrackerEvent.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

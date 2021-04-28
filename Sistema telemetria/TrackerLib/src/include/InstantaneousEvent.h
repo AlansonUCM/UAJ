@@ -1,10 +1,10 @@
 #pragma once
 #include "TrackerEvent.h"
 
-class ProgressionEvent : public TrackerEvent
+class InstantaneousEvent : public TrackerEvent
 {
 public:
-	ProgressionEvent();
+	InstantaneousEvent();
 
 	std::string toJSON();
 	std::string toCSV();

@@ -38,11 +38,11 @@ void FilePersistence::update()
 
 		// Si el modo de volcado es por checkpoint
 		// y es un evento checkpoint, se hace flush
-		if (mode == PersistenceMode::Checkpoint &&
+		if (mode == PersistenceMode::Checkpoint/* &&
 			e.getType() == EventType::Instantaneous &&
 			e.getName() == EventName::EndLevel &&
 			e.getName() == EventName::EndSession &&
-			e.getName() == EventName::PlayerDie)
+			e.getName() == EventName::PlayerDie*/)
 			flush();
 	}
 }

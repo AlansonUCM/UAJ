@@ -3,42 +3,43 @@
 
 using json = nlohmann::json;
 
-TrackerEvent::TrackerEvent() : type(EventType::Instantaneous), sessionID(0), timestamp(0)
+TrackerEvent::TrackerEvent() : name(""), gameID(0), sessionID(0), userID(0), checkpoint(false), eventProperties(std::map<std::string, double>())
 {
 }
 
-void TrackerEvent::setType(EventType type)
+void TrackerEvent::setName(std::string name)
 {
-	this->type = type;
+	this->name = name;
 }
 
-void TrackerEvent::setName(EventName name)
+void TrackerEvent::setTimestamp(double time)
 {
+	timestamp = time;
 }
 
-EventType TrackerEvent::getType() const
+void TrackerEvent::setGameID(int game)
 {
-	return type;
+	gameID = game;
 }
 
-EventName TrackerEvent::getName() const
+void TrackerEvent::setSessionID(int session)
 {
-	return EventName();
+	sessionID = session;
 }
 
-void TrackerEvent::setSessionID(int sessionID)
+void TrackerEvent::setUserID(int user)
 {
-	this->sessionID = sessionID;
+	userID = user;
 }
 
-int TrackerEvent::getSessionID() const
+void TrackerEvent::setCheckpoint(bool checkpoint)
 {
-	return sessionID;
+	this->checkpoint = checkpoint;
 }
 
-void TrackerEvent::setTimestamp(float timestamp)
+std::string TrackerEvent::getName() const
 {
-	this->timestamp = timestamp;
+	return name;
 }
 
 float TrackerEvent::getTimestamp() const
@@ -46,19 +47,71 @@ float TrackerEvent::getTimestamp() const
 	return timestamp;
 }
 
+int TrackerEvent::getGameID() const
+{
+	return gameID;
+}
+
+int TrackerEvent::getSessionID() const
+{
+	return sessionID;
+}
+
+int TrackerEvent::getUserID() const
+{
+	return userID;
+}
+
+bool TrackerEvent::getCheckpoint() const
+{
+	return checkpoint;
+}
+
+std::vector<std::string> TrackerEvent::getKeys() const
+{
+	return keys;
+}
+
+std::map<std::string, double> TrackerEvent::getEventProperties() const
+{
+	return eventProperties;
+}
+
 std::string TrackerEvent::toJSON() const
 {
 	json j;
-	j["type"] = type;
-	j["sessionID"] = sessionID;
+	j["name"] = name;
 	j["timestamp"] = timestamp;
+	j["gameID"] = gameID;
+	j["sessionID"] = sessionID;
+	j["userID"] = userID;
+	j["checkpoint"] = checkpoint;
+
+	int i = 0;
+	while (i < keys.size())
+	{
+		j[keys[i]] = eventProperties.at(keys[i]);
+		i++;
+	}
+
 	return j.dump();
 }
 
 std::string TrackerEvent::toCSV() const
 {
-	std::string typeString = "type," + std::to_string((int)type) + "\n";
-	std::string sessionIDString = "sessionID," + std::to_string(sessionID) + "\n";
-	std::string timestampString = "timestamp," + std::to_string(timestamp) + "\n";
-	return typeString + sessionIDString + timestampString;
+	std::string csv = "type," + name + "\n";
+	csv += "timestamp," + std::to_string(timestamp) + "\n";
+	csv += "gameID," + std::to_string(gameID) + "\n";
+	csv += "sessionID," + std::to_string(sessionID) + "\n";
+	csv += "userID," + std::to_string(userID) + "\n";
+	csv += "checkpoint," + std::to_string(checkpoint) + "\n";
+
+	int i = 0;
+	while (i < keys.size())
+	{
+		csv += keys[i] + " " + std::to_string(eventProperties.at(keys[i])) + "\n";
+		i++;
+	}
+
+	return csv;
 }
