@@ -35,7 +35,6 @@
     <ClInclude Include="src\include\ServerPersistence.h" />
     <ClInclude Include="src\include\TimeBasedEvent.h" />
     <ClInclude Include="src\include\Utils.h" />
-    <ClInclude Include="src\include\TimeBaseEvent.h" />
     <ClInclude Include="src\include\Tracker.h" />
     <ClInclude Include="src\include\TrackerExports.h" />
     <ClInclude Include="src\include\TrackerEvent.h" />

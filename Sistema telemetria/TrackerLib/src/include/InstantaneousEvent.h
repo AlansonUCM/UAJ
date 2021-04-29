@@ -6,6 +6,6 @@ class InstantaneousEvent : public TrackerEvent
 public:
 	InstantaneousEvent();
 
-	std::string toJSON();
-	std::string toCSV();
+	virtual std::string toJSON() const;
+	virtual std::string toCSV() const;
 };

@@ -19,7 +19,7 @@ public:
 
 	virtual void update();
 
-	virtual void send(TrackerEvent e);
+	virtual void send(TrackerEvent* e);
 	virtual void flush();
 
 };

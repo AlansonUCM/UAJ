@@ -1,133 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Archivos de origen">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Archivos de encabezado">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Archivos de recursos">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Archivos de origen\Persistance">
-      <UniqueIdentifier>{f321b46a-c499-40e0-9999-491138ac81f9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\Serialization">
-      <UniqueIdentifier>{8e70f2b3-1fcc-4e58-8b70-900a4134915c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\TrackerAssets">
-      <UniqueIdentifier>{16de742c-5c78-473b-90f4-305ef55a17c4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Archivos de origen\TrackerEvents">
-      <UniqueIdentifier>{a752f541-34f7-47c7-8de9-00993540a114}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="src\src\machineID.cpp" />
+    <ClCompile Include="src\src\main.cpp" />
+    <ClCompile Include="src\src\md5Hash.cpp" />
+    <ClCompile Include="src\src\Persistance\FilePersistence.cpp" />
+    <ClCompile Include="src\src\Persistance\ServerPersistence.cpp" />
+    <ClCompile Include="src\src\Serialization\CSVSerializer.cpp" />
+    <ClCompile Include="src\src\Serialization\JSONSerializer.cpp" />
+    <ClCompile Include="src\src\Utils.cpp" />
+    <ClCompile Include="src\src\Tracker.cpp" />
+    <ClCompile Include="src\src\TrackerAssets\ProgressionTracker.cpp" />
+    <ClCompile Include="src\src\TrackerEvents\InstantaneousEvent.cpp" />
+    <ClCompile Include="src\src\TrackerEvents\ProgressionEvent.cpp" />
+    <ClCompile Include="src\src\TrackerEvents\SamplingEvent.cpp" />
+    <ClCompile Include="src\src\TrackerEvents\TimeBasedEvent.cpp" />
+    <ClCompile Include="src\src\TrackerEvents\TrackerEvent.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\include\ConcurrentQueue.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\CSVSerializer.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\FilePersistence.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\IPersistence.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\ISerializer.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\ITrackerAsset.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\JSONSerializer.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\ProgressionEvent.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\ProgressionTracker.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\ServerPersistence.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\Tracker.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\TrackerExports.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\TrackerEvent.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\InstantaneousEvent.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\SamplingEvent.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\TimeBasedEvent.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\md5Hash.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\machineID.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="src\include\Utils.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\src\TrackerEvents\ProgressionEvent.cpp">
-      <Filter>Archivos de origen\TrackerEvents</Filter>
-    </ClCompile>
-    <ClCompile Include="src\src\TrackerEvents\TrackerEvent.cpp">
-      <Filter>Archivos de origen\TrackerEvents</Filter>
-    </ClCompile>
-    <ClCompile Include="src\src\TrackerAssets\ProgressionTracker.cpp">
-      <Filter>Archivos de origen\TrackerAssets</Filter>
-    </ClCompile>
-    <ClCompile Include="src\src\Serialization\CSVSerializer.cpp">
-      <Filter>Archivos de origen\Serialization</Filter>
-    </ClCompile>
-    <ClCompile Include="src\src\Serialization\JSONSerializer.cpp">
-      <Filter>Archivos de origen\Serialization</Filter>
-    </ClCompile>
-    <ClCompile Include="src\src\Persistance\FilePersistence.cpp">
-      <Filter>Archivos de origen\Persistance</Filter>
-    </ClCompile>
-    <ClCompile Include="src\src\Persistance\ServerPersistence.cpp">
-      <Filter>Archivos de origen\Persistance</Filter>
-    </ClCompile>
-    <ClCompile Include="src\src\Tracker.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="src\src\main.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="src\src\TrackerEvents\InstantaneousEvent.cpp">
-      <Filter>Archivos de origen\TrackerEvents</Filter>
-    </ClCompile>
-    <ClCompile Include="src\src\TrackerEvents\SamplingEvent.cpp">
-      <Filter>Archivos de origen\TrackerEvents</Filter>
-    </ClCompile>
-    <ClCompile Include="src\src\TrackerEvents\TimeBasedEvent.cpp">
-      <Filter>Archivos de origen\TrackerEvents</Filter>
-    </ClCompile>
-    <ClCompile Include="src\src\md5Hash.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
-    <ClCompile Include="src\src\machineID.cpp">
-    <ClCompile Include="src\src\Utils.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
+    <ClInclude Include="src\include\ConcurrentQueue.h" />
+    <ClInclude Include="src\include\CSVSerializer.h" />
+    <ClInclude Include="src\include\FilePersistence.h" />
+    <ClInclude Include="src\include\InstantaneousEvent.h" />
+    <ClInclude Include="src\include\IPersistence.h" />
+    <ClInclude Include="src\include\ISerializer.h" />
+    <ClInclude Include="src\include\ITrackerAsset.h" />
+    <ClInclude Include="src\include\JSONSerializer.h" />
+    <ClInclude Include="src\include\machineID.h" />
+    <ClInclude Include="src\include\md5Hash.h" />
+    <ClInclude Include="src\include\ProgressionEvent.h" />
+    <ClInclude Include="src\include\ProgressionTracker.h" />
+    <ClInclude Include="src\include\SamplingEvent.h" />
+    <ClInclude Include="src\include\ServerPersistence.h" />
+    <ClInclude Include="src\include\TimeBasedEvent.h" />
+    <ClInclude Include="src\include\Utils.h" />
+    <ClInclude Include="src\include\Tracker.h" />
+    <ClInclude Include="src\include\TrackerExports.h" />
+    <ClInclude Include="src\include\TrackerEvent.h" />
   </ItemGroup>
 </Project>

@@ -20,9 +20,9 @@ protected:
 	std::atomic_bool flushing;
 
 	ISerializer* serializer = nullptr;
-	ConcurrentQueue<TrackerEvent> eventQueue;
+	ConcurrentQueue<TrackerEvent*> eventQueue;
 
-	std::queue<TrackerEvent> eventsToFlush;
+	std::queue<TrackerEvent*> eventsToFlush;
 
 public:
 	virtual void init(const std::string& type) = 0;
@@ -30,7 +30,7 @@ public:
 
 	virtual void update() = 0;
 
-	virtual void send(TrackerEvent e) = 0;
+	virtual void send(TrackerEvent* e) = 0;
 	virtual void flush() = 0;
 
 };

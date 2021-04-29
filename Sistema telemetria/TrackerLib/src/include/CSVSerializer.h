@@ -11,6 +11,6 @@ private:
 public:
 	CSVSerializer();
 
-	virtual std::string serialize(const TrackerEvent& e);
+	virtual std::string serialize(const TrackerEvent* e);
 
 };

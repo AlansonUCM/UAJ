@@ -1,15 +1,43 @@
 #include "ProgressionEvent.h"
 
-ProgressionEvent::ProgressionEvent() : TrackerEvent()
+#define stringify(name) # name
+
+ProgressionEvent::ProgressionEvent() : TrackerEvent(), state()
 {
 }
 
-std::string ProgressionEvent::toJSON()
+void ProgressionEvent::setState(int state)
 {
-	return TrackerEvent::toJSON();
+	this->state = (State)state;
 }
 
-std::string ProgressionEvent::toCSV()
+int ProgressionEvent::getState() const
 {
-	return TrackerEvent::toCSV();
+	return (int)state;
+}
+
+std::string ProgressionEvent::toJSON() const
+{
+	json j;
+
+	generalPropertiesToJSON(j);
+	j["state"] = stringify(state);
+	eventPropertiesToJSON(j);
+
+	return j.dump(4);
+}
+
+std::string ProgressionEvent::toCSV() const
+{
+	std::string atributes;
+	std::string values;
+
+	generalPropertiesToCSV(atributes, values);
+
+	atributes += "state,";
+	values += ',' + stringify(state);
+
+	eventPropertiesToCSV(atributes, values);
+
+	return atributes + "\n" + values;
 }

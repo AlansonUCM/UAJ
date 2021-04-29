@@ -2,7 +2,7 @@
 
 ServerPersistence::ServerPersistence()
 {
-    
+
 }
 
 ServerPersistence::~ServerPersistence()
@@ -10,14 +10,14 @@ ServerPersistence::~ServerPersistence()
 
 }
 
-void ServerPersistence::init(const std::string & type)
+void ServerPersistence::init(const std::string& type)
 {
 
 }
 
 void ServerPersistence::end()
 {
-    exit = true;
+	exit = true;
 }
 
 void ServerPersistence::update()
@@ -25,7 +25,7 @@ void ServerPersistence::update()
 
 }
 
-void ServerPersistence::send(TrackerEvent e)
+void ServerPersistence::send(TrackerEvent* e)
 {
 
 }

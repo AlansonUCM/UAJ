@@ -4,12 +4,12 @@ SamplingEvent::SamplingEvent() : TrackerEvent()
 {
 }
 
-std::string SamplingEvent::toJSON()
+std::string SamplingEvent::toJSON() const
 {
 	return TrackerEvent::toJSON();
 }
 
-std::string SamplingEvent::toCSV()
+std::string SamplingEvent::toCSV() const
 {
 	return TrackerEvent::toCSV();
 }

@@ -6,6 +6,6 @@ class SamplingEvent : public TrackerEvent
 public:
 	SamplingEvent();
 
-	std::string toJSON();
-	std::string toCSV();
+	virtual std::string toJSON() const;
+	virtual std::string toCSV() const;
 };

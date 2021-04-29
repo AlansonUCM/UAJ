@@ -48,19 +48,19 @@ void FilePersistence::update()
 		if (eventQueue.empty())
 			continue;
 
-		TrackerEvent e = eventQueue.pop();
+		TrackerEvent* e = eventQueue.pop();
 		eventsToFlush.push(e);
 
-		printf("%s\n", e.getName().c_str());
+		printf("%s\n", e->getName().c_str());
 
 		// Si el modo de volcado es por checkpoint
 		// y es un evento checkpoint, se hace flush
-		if (mode == PersistenceMode::Checkpoint && e.getCheckpoint())
+		if (mode == PersistenceMode::Checkpoint && e->getCheckpoint())
 			flush();
 	}
 }
 
-void FilePersistence::send(TrackerEvent e)
+void FilePersistence::send(TrackerEvent* e)
 {
 	eventQueue.push(e);
 }
@@ -77,18 +77,19 @@ void FilePersistence::flush()
 
 	while (!eventsToFlush.empty())
 	{
-		TrackerEvent e = eventsToFlush.front();
+		TrackerEvent* e = eventsToFlush.front();
 		text += serializer->serialize(e) + "\n";
-		
-		printf("flushed: %s\n", e.getName().c_str());
+
+		printf("flushed: %s\n", e->getName().c_str());
 
 		eventsToFlush.pop();
+		delete e;
 	}
 
 	//printf("%s\n", text.c_str());
 
 	// append instead of overwrite
-	logFile.open(fileName, std::ios_base::app); 
+	logFile.open(fileName, std::ios_base::app);
 	logFile << text;
 
 	logFile.close();

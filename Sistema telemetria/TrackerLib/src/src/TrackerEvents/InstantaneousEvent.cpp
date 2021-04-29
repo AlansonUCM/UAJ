@@ -4,12 +4,12 @@ InstantaneousEvent::InstantaneousEvent() : TrackerEvent()
 {
 }
 
-std::string InstantaneousEvent::toJSON()
+std::string InstantaneousEvent::toJSON() const
 {
 	return TrackerEvent::toJSON();
 }
 
-std::string InstantaneousEvent::toCSV()
+std::string InstantaneousEvent::toCSV() const
 {
 	return TrackerEvent::toCSV();
 }

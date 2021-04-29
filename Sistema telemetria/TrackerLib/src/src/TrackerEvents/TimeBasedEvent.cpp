@@ -1,15 +1,41 @@
 #include "TimeBasedEvent.h"
 
-TimeBasedEvent::TimeBasedEvent() : TrackerEvent()
+TimeBasedEvent::TimeBasedEvent() : TrackerEvent(), state()
 {
 }
 
-std::string TimeBasedEvent::toJSON()
+void TimeBasedEvent::setState(bool state)
 {
-	return TrackerEvent::toJSON();
+	this->state = state;
 }
 
-std::string TimeBasedEvent::toCSV()
+bool TimeBasedEvent::getState() const
 {
-	return TrackerEvent::toCSV();
+	return state;
+}
+
+std::string TimeBasedEvent::toJSON() const
+{
+	json j;
+
+	generalPropertiesToJSON(j);
+	j["state"] = state;
+	eventPropertiesToJSON(j);
+
+	return j.dump(4);
+}
+
+std::string TimeBasedEvent::toCSV() const
+{
+	std::string atributes;
+	std::string values;
+
+	generalPropertiesToCSV(atributes, values);
+
+	atributes += "state,";
+	values += ',' + state;
+
+	eventPropertiesToCSV(atributes, values);
+
+	return atributes + "\n" + values;
 }

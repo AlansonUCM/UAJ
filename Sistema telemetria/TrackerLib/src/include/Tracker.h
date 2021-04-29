@@ -16,11 +16,11 @@ private:
 	static Tracker* instance;
 	IPersistence* persistenceObject;
 	std::vector<ITrackerAsset*> activeTrackers;
-	
+
 	std::string sessionId;
 
 	std::thread* thread;
-	void trackEvent(const TrackerEvent& e);
+	void trackEvent(TrackerEvent* e);
 
 public:
 	Tracker();
@@ -31,9 +31,9 @@ public:
 	void init();
 	void end();
 
-	void trackInstantaneousEvent(std::string name, std::map<std::string, double> eventProperties, bool checkpoint = false);
-	void trackProgressEvent(std::string name, std::map<std::string, double> eventProperties, bool checkpoint = false, int state = 0);
-	void trackSamplingEvent(std::string name, std::map<std::string, double> eventProperties, bool checkpoint = false);
-	void trackTimeBasedEvent(std::string name, std::map<std::string, double> eventProperties, bool checkpoint = false, bool end = false);
+	void trackInstantaneousEvent(std::string name, std::map<std::string, std::string> eventProperties, bool checkpoint = false);
+	void trackProgressEvent(std::string name, std::map<std::string, std::string> eventProperties, bool checkpoint = false, int state = 0);
+	void trackSamplingEvent(std::string name, std::map<std::string, std::string> eventProperties, bool checkpoint = false);
+	void trackTimeBasedEvent(std::string name, std::map<std::string, std::string> eventProperties, bool checkpoint = false, bool end = false);
 
 };

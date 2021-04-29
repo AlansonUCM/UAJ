@@ -8,7 +8,7 @@ JSONSerializer::JSONSerializer()
 
 }
 
-std::string JSONSerializer::serialize(const TrackerEvent& e)
+std::string JSONSerializer::serialize(const TrackerEvent* e)
 {
-	return e.toJSON();
+	return e->toJSON();
 }

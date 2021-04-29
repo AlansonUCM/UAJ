@@ -69,68 +69,72 @@ void Tracker::end()
 	delete thread;
 }
 
-void Tracker::trackInstantaneousEvent(std::string name, std::map<std::string, double> eventProperties, bool checkpoint)
+void Tracker::trackInstantaneousEvent(std::string name, std::map<std::string, std::string> eventProperties, bool checkpoint)
 {
-	TrackerEvent event = InstantaneousEvent();
+	InstantaneousEvent* event = new InstantaneousEvent();
 	//double timestamp = std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();
-	event.setName(name);
-	event.setTimestamp(Utils::getTime()); //timestamp);
-	event.setSessionID(sessionId);
-	event.setCheckpoint(checkpoint);
+	event->setType("Instantaneous");
+	event->setName(name);
+	event->setTimestamp(Utils::getTime()); //timestamp);
+	event->setSessionID(sessionId);
+	event->setCheckpoint(checkpoint);
+	event->setEventProperties(eventProperties);
 
 	trackEvent(event);
 }
 
-void Tracker::trackProgressEvent(std::string name, std::map<std::string, double> eventProperties, bool checkpoint, int state)
+void Tracker::trackProgressEvent(std::string name, std::map<std::string, std::string> eventProperties, bool checkpoint, int state)
 {
-	TrackerEvent event = ProgressionEvent();
+	ProgressionEvent* event = new ProgressionEvent();
 	//double timestamp = std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();
-	event.setName(name);
-	event.setTimestamp(Utils::getTime());
-	event.setSessionID(sessionId);
-	event.setCheckpoint(checkpoint);
+	event->setType("Progression");
+	event->setName(name);
+	event->setTimestamp(Utils::getTime());
+	event->setSessionID(sessionId);
+	event->setCheckpoint(checkpoint);
+	event->setEventProperties(eventProperties);
 
 	//Progress of the event
+	event->setState(state);
 
 	trackEvent(event);
 }
 
-void Tracker::trackSamplingEvent(std::string name, std::map<std::string, double> eventProperties, bool checkpoint)
+void Tracker::trackSamplingEvent(std::string name, std::map<std::string, std::string> eventProperties, bool checkpoint)
 {
-	TrackerEvent event =  SamplingEvent();
+	SamplingEvent* event = new SamplingEvent();
 	//double timestamp = std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();
-	event.setName(name);
-	event.setTimestamp(Utils::getTime());
-	event.setSessionID(sessionId);
-	event.setCheckpoint(checkpoint);
+	event->setType("Sampling");
+	event->setName(name);
+	event->setTimestamp(Utils::getTime());
+	event->setSessionID(sessionId);
+	event->setCheckpoint(checkpoint);
+	event->setEventProperties(eventProperties);
 
 	//Add Sampling (Añadir el evento recurrentemente a la cola)????
 
 	trackEvent(event);
 }
 
-void Tracker::trackTimeBasedEvent(std::string name, std::map<std::string, double> eventProperties, bool checkpoint, bool end)
+void Tracker::trackTimeBasedEvent(std::string name, std::map<std::string, std::string> eventProperties, bool checkpoint, bool end)
 {
-	TrackerEvent event = TimeBasedEvent();
+	TimeBasedEvent* event = new TimeBasedEvent();
 	//double timestamp = std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();
-	event.setName(name);
-	event.setTimestamp(Utils::getTime());
-	event.setSessionID(sessionId);
-	event.setCheckpoint(checkpoint);
+	event->setType("TimeBased");
+	event->setName(name);
+	event->setTimestamp(Utils::getTime());
+	event->setSessionID(sessionId);
+	event->setCheckpoint(checkpoint);
+	event->setEventProperties(eventProperties);
 
 	//Begining or end of the event
+	event->setState(end);
 
 	trackEvent(event);
 }
 
-void Tracker::trackEvent(const TrackerEvent& e)
+void Tracker::trackEvent(TrackerEvent* e)
 {
-	// Funcion que se llama desde el juego
-	/*int i = 0;
-	while (i < activeTrackers.size() && !activeTrackers[i]->accept(e))
-		i++;
-
-	if (i < activeTrackers.size())*/
 	persistenceObject->send(e);
 }
 

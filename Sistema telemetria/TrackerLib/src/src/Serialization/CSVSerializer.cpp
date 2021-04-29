@@ -8,7 +8,7 @@ CSVSerializer::CSVSerializer()
 
 }
 
-std::string CSVSerializer::serialize(const TrackerEvent& e)
+std::string CSVSerializer::serialize(const TrackerEvent* e)
 {
-	return e.toCSV();
+	return e->toCSV();
 }

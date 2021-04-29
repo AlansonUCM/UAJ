@@ -1,11 +1,20 @@
 #pragma once
 #include "TrackerEvent.h"
 
+enum class State { Started, Progressed, Finished };
+
 class ProgressionEvent : public TrackerEvent
 {
+private:
+	State state;
+
 public:
 	ProgressionEvent();
 
-	std::string toJSON();
-	std::string toCSV();
+	void setState(int state);
+
+	int getState() const;
+
+	virtual std::string toJSON() const;
+	virtual std::string toCSV() const;
 };

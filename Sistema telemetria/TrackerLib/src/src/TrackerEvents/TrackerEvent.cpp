@@ -1,20 +1,45 @@
 #include "TrackerEvent.h"
-#include "json.hpp"
 
-using json = nlohmann::json;
-
-TrackerEvent::TrackerEvent() : name(""), gameID(""), sessionID(""), userID(""), checkpoint(false), eventProperties({})
+void TrackerEvent::generalPropertiesToJSON(json& j) const
 {
+	j["gameID"] = gameID;
+	j["sessionID"] = sessionID;
+	j["userID"] = userID;
+	j["timestamp"] = timestamp;
+	j["type"] = type;
+	j["name"] = name;
+	j["checkpoint"] = checkpoint;
 }
 
-void TrackerEvent::setName(const std::string& name)
+void TrackerEvent::eventPropertiesToJSON(json& j) const
 {
-	this->name = name;
+	auto it = eventProperties.begin();
+	while (it != eventProperties.end())
+	{
+		j[(*it).first] = (*it).second;
+		it++;
+	}
 }
 
-void TrackerEvent::setTimestamp(const std::string& time)
+void TrackerEvent::generalPropertiesToCSV(std::string& atributes, std::string& values) const
 {
-	timestamp = time;
+	atributes = "gameID,sessionID,userID,timestamp,type,name,checkpoint";
+	values = gameID + "," + sessionID + "," + userID + "," + timestamp + "," + type + "," + name + "," + std::to_string(checkpoint);
+}
+
+void TrackerEvent::eventPropertiesToCSV(std::string& atributes, std::string& values) const
+{
+	auto it = eventProperties.begin();
+	while (it != eventProperties.end())
+	{
+		atributes += "," + (*it).first;
+		values += "," + (*it).second;
+		it++;
+	}
+}
+
+TrackerEvent::TrackerEvent() : gameID(""), sessionID(""), userID(""), timestamp(""), type(""), name(""), checkpoint(false), eventProperties({})
+{
 }
 
 void TrackerEvent::setGameID(const std::string& game)
@@ -32,19 +57,29 @@ void TrackerEvent::setUserID(const std::string& user)
 	userID = user;
 }
 
+void TrackerEvent::setTimestamp(const std::string& time)
+{
+	timestamp = time;
+}
+
+void TrackerEvent::setType(const std::string& type)
+{
+	this->type = type;
+}
+
+void TrackerEvent::setName(const std::string& name)
+{
+	this->name = name;
+}
+
 void TrackerEvent::setCheckpoint(bool checkpoint)
 {
 	this->checkpoint = checkpoint;
 }
 
-std::string TrackerEvent::getName() const
+void TrackerEvent::setEventProperties(std::map<std::string, std::string> properties)
 {
-	return name;
-}
-
-std::string TrackerEvent::getTimestamp() const
-{
-	return timestamp;
+	this->eventProperties = properties;
 }
 
 std::string TrackerEvent::getGameID() const
@@ -62,56 +97,48 @@ std::string TrackerEvent::getUserID() const
 	return userID;
 }
 
+std::string TrackerEvent::getTimestamp() const
+{
+	return timestamp;
+}
+
+std::string TrackerEvent::getType() const
+{
+	return type;
+}
+
+std::string TrackerEvent::getName() const
+{
+	return name;
+}
+
 bool TrackerEvent::getCheckpoint() const
 {
 	return checkpoint;
 }
 
-std::vector<std::string> TrackerEvent::getKeys() const
+std::map<std::string, std::string>* TrackerEvent::getEventProperties()
 {
-	return keys;
-}
-
-std::map<std::string, double> TrackerEvent::getEventProperties() const
-{
-	return eventProperties;
+	return &eventProperties;
 }
 
 std::string TrackerEvent::toJSON() const
 {
 	json j;
-	j["name"] = name;
-	j["timestamp"] = timestamp;
-	j["gameID"] = gameID;
-	j["sessionID"] = sessionID;
-	j["userID"] = userID;
-	j["checkpoint"] = checkpoint;
-	
-	int i = 0;
-	while (i < keys.size())
-	{
-		j[keys[i]] = eventProperties.at(keys[i]);
-		i++;
-	}
 
-	return j.dump(4/*0,'\n', true*/);
+	generalPropertiesToJSON(j);
+	eventPropertiesToJSON(j);
+
+	return j.dump(4);
 }
 
 std::string TrackerEvent::toCSV() const
 {
-	std::string csv = "type," + name + "\n";
-	csv += "timestamp," + timestamp + "\n";
-	csv += "gameID," + gameID + "\n";
-	csv += "sessionID," + sessionID + "\n";
-	csv += "userID," + userID + "\n";
-	csv += "checkpoint," + std::to_string(checkpoint) + "\n";
+	std::string atributes;
+	std::string values;
 
-	int i = 0;
-	while (i < keys.size())
-	{
-		csv += keys[i] + " " + std::to_string(eventProperties.at(keys[i])) + "\n";
-		i++;
-	}
+	generalPropertiesToCSV(atributes, values);
+	eventPropertiesToCSV(atributes, values);
 
-	return csv;
+	return atributes + "\n" + values;
 }

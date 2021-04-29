@@ -3,9 +3,16 @@
 
 class TimeBasedEvent : public TrackerEvent
 {
+private:
+	bool state;
+
 public:
 	TimeBasedEvent();
 
-	std::string toJSON();
-	std::string toCSV();
+	void setState(bool state);
+
+	bool getState() const;
+
+	virtual std::string toJSON() const;
+	virtual std::string toCSV() const;
 };

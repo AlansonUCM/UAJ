@@ -11,6 +11,6 @@ private:
 public:
 	JSONSerializer();
 
-	virtual std::string serialize(const TrackerEvent& e);
+	virtual std::string serialize(const TrackerEvent* e);
 
 };
