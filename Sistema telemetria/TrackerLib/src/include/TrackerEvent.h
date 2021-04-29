@@ -8,7 +8,7 @@ class TrackerEvent
 private:
 	std::string name;
 	double timestamp;
-	int gameID, sessionID, userID;
+	std::string gameID, sessionID, userID;
 	bool checkpoint;
 
 	std::vector<std::string> keys;
@@ -19,16 +19,16 @@ public:
 
 	void setName(std::string name);
 	void setTimestamp(double time);
-	void setGameID(int game);
-	void setSessionID(int session);
-	void setUserID(int user);
+	void setGameID(std::string game);
+	void setSessionID(std::string session);
+	void setUserID(std::string user);
 	void setCheckpoint(bool checkpoint);
 
 	std::string getName() const;
 	float getTimestamp() const;
-	int getGameID() const;
-	int getSessionID() const;
-	int getUserID() const;
+	std::string getGameID() const;
+	std::string getSessionID() const;
+	std::string getUserID() const;
 	bool getCheckpoint() const;
 
 	std::vector<std::string> getKeys() const;

@@ -1,6 +1,6 @@
 #include "ProgressionEvent.h"
 
-ProgressionEvent::ProgressionEvent()
+ProgressionEvent::ProgressionEvent() : TrackerEvent()
 {
 }
 

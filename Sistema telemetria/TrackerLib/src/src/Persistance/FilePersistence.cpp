@@ -56,18 +56,12 @@ void FilePersistence::update()
 		TrackerEvent e = eventQueue.pop();
 		eventsToFlush.push(e);
 
-		printf("%i\n", e.getName());
+		printf("%s\n", e.getName().c_str());
 
 		// Si el modo de volcado es por checkpoint
 		// y es un evento checkpoint, se hace flush
-		if (mode == PersistenceMode::Checkpoint/* &&
-			e.getType() == EventType::Instantaneous &&
-			e.getName() == EventName::EndLevel &&
-			e.getName() == EventName::EndSession &&
-			e.getName() == EventName::PlayerDie*/)
-		{
+		if (mode == PersistenceMode::Checkpoint && e.getCheckpoint())
 			flush();
-		}
 	}
 }
 
@@ -93,7 +87,7 @@ void FilePersistence::flush()
 		eventsToFlush.pop();
 	}
 
-	printf("%s\n", text);
+	printf("%s\n", text.c_str());
 
 	logFile.open(fileName, std::ios_base::app); // append instead of overwrite
 	logFile << text; //logFile.write(text.c_str(), text.length());

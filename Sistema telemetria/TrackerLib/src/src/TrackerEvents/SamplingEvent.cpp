@@ -1,6 +1,6 @@
 #include "SamplingEvent.h"
 
-SamplingEvent::SamplingEvent()
+SamplingEvent::SamplingEvent() : TrackerEvent()
 {
 }
 

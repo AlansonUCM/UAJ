@@ -27,9 +27,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\include\PlayerActionTracker.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\ConcurrentQueue.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -69,16 +66,19 @@
     <ClInclude Include="src\include\TrackerEvent.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\BossActionTracker.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\InstantaneousEvent.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="src\include\SamplingEvent.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\TimeBaseEvent.h">
+    <ClInclude Include="src\include\TimeBasedEvent.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\md5Hash.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\machineID.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -88,9 +88,6 @@
     </ClCompile>
     <ClCompile Include="src\src\TrackerEvents\TrackerEvent.cpp">
       <Filter>Archivos de origen\TrackerEvents</Filter>
-    </ClCompile>
-    <ClCompile Include="src\src\TrackerAssets\PlayerActionTracker.cpp">
-      <Filter>Archivos de origen\TrackerAssets</Filter>
     </ClCompile>
     <ClCompile Include="src\src\TrackerAssets\ProgressionTracker.cpp">
       <Filter>Archivos de origen\TrackerAssets</Filter>
@@ -110,9 +107,6 @@
     <ClCompile Include="src\src\Tracker.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="src\src\TrackerAssets\BossActionTracker.cpp">
-      <Filter>Archivos de origen\TrackerAssets</Filter>
-    </ClCompile>
     <ClCompile Include="src\src\main.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -122,8 +116,14 @@
     <ClCompile Include="src\src\TrackerEvents\SamplingEvent.cpp">
       <Filter>Archivos de origen\TrackerEvents</Filter>
     </ClCompile>
-    <ClCompile Include="src\src\TrackerEvents\TimeBaseEvent.cpp">
+    <ClCompile Include="src\src\TrackerEvents\TimeBasedEvent.cpp">
       <Filter>Archivos de origen\TrackerEvents</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\md5Hash.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\machineID.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

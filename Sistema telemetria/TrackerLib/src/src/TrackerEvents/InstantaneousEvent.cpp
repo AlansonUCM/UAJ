@@ -1,6 +1,6 @@
 #include "InstantaneousEvent.h"
 
-InstantaneousEvent::InstantaneousEvent()
+InstantaneousEvent::InstantaneousEvent() : TrackerEvent()
 {
 }
 
