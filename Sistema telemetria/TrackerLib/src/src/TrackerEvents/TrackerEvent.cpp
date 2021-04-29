@@ -7,27 +7,27 @@ TrackerEvent::TrackerEvent() : name(""), gameID(""), sessionID(""), userID(""), 
 {
 }
 
-void TrackerEvent::setName(std::string name)
+void TrackerEvent::setName(const std::string& name)
 {
 	this->name = name;
 }
 
-void TrackerEvent::setTimestamp(double time)
+void TrackerEvent::setTimestamp(const std::string& time)
 {
 	timestamp = time;
 }
 
-void TrackerEvent::setGameID(std::string game)
+void TrackerEvent::setGameID(const std::string& game)
 {
 	gameID = game;
 }
 
-void TrackerEvent::setSessionID(std::string session)
+void TrackerEvent::setSessionID(const std::string& session)
 {
 	sessionID = session;
 }
 
-void TrackerEvent::setUserID(std::string user)
+void TrackerEvent::setUserID(const std::string& user)
 {
 	userID = user;
 }
@@ -42,7 +42,7 @@ std::string TrackerEvent::getName() const
 	return name;
 }
 
-float TrackerEvent::getTimestamp() const
+std::string TrackerEvent::getTimestamp() const
 {
 	return timestamp;
 }
@@ -94,13 +94,13 @@ std::string TrackerEvent::toJSON() const
 		i++;
 	}
 
-	return j.dump(-1,'\n');
+	return j.dump(4/*0,'\n', true*/);
 }
 
 std::string TrackerEvent::toCSV() const
 {
 	std::string csv = "type," + name + "\n";
-	csv += "timestamp," + std::to_string(timestamp) + "\n";
+	csv += "timestamp," + timestamp + "\n";
 	csv += "gameID," + gameID + "\n";
 	csv += "sessionID," + sessionID + "\n";
 	csv += "userID," + userID + "\n";

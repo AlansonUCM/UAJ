@@ -34,6 +34,8 @@
     <ClInclude Include="src\include\SamplingEvent.h" />
     <ClInclude Include="src\include\ServerPersistence.h" />
     <ClInclude Include="src\include\TimeBasedEvent.h" />
+    <ClInclude Include="src\include\Utils.h" />
+    <ClInclude Include="src\include\TimeBaseEvent.h" />
     <ClInclude Include="src\include\Tracker.h" />
     <ClInclude Include="src\include\TrackerExports.h" />
     <ClInclude Include="src\include\TrackerEvent.h" />
@@ -46,6 +48,7 @@
     <ClCompile Include="src\src\Persistance\ServerPersistence.cpp" />
     <ClCompile Include="src\src\Serialization\CSVSerializer.cpp" />
     <ClCompile Include="src\src\Serialization\JSONSerializer.cpp" />
+    <ClCompile Include="src\src\Utils.cpp" />
     <ClCompile Include="src\src\Tracker.cpp" />
     <ClCompile Include="src\src\TrackerAssets\ProgressionTracker.cpp" />
     <ClCompile Include="src\src\TrackerEvents\InstantaneousEvent.cpp" />

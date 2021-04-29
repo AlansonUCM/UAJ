@@ -1,9 +1,12 @@
 #include "FilePersistence.h"
 
-#include <ctime>
-
 #include "JSONSerializer.h"
 #include "CSVSerializer.h"
+#include "json.hpp"
+
+#include "Utils.h"
+
+using jsonf = nlohmann::json;
 
 FilePersistence::FilePersistence()
 {
@@ -27,18 +30,10 @@ void FilePersistence::init(const std::string& type)
 
 	// Crea el archivo de trazas para esta sesion
 	// con nombre: fecha y hora
-	time_t rawtime;
-	struct tm timeInfo;
-	char buffer[80];
+	fileName = "logs/" + std::string(Utils::getTime()) + ".log";
 
-	time(&rawtime);
-	localtime_s(&timeInfo, &rawtime);
-
-	strftime(buffer, 80, "%d-%m-%Y %H-%M-%S", &timeInfo);
-	fileName = "logs/" + std::string(buffer) + ".log";
-
-	logFile.open(fileName, std::ios_base::app); // append instead of overwrite
-	logFile << "log creado\n";
+	logFile.open(fileName);
+	logFile.close();
 }
 
 void FilePersistence::end()
@@ -74,7 +69,7 @@ void FilePersistence::flush()
 {
 	flushing = true;
 
-	printf("start flush\n");
+	printf("flush\n");
 
 	// Vuelca la cola de eventos listos para ser volcados
 	// en el archivo de trazas
@@ -82,15 +77,21 @@ void FilePersistence::flush()
 
 	while (!eventsToFlush.empty())
 	{
-		text += serializer->serialize(eventsToFlush.front()) + "\n";
+		TrackerEvent e = eventsToFlush.front();
+		text += serializer->serialize(e) + "\n";
+		
+		printf("flushed: %s\n", e.getName().c_str());
 
 		eventsToFlush.pop();
 	}
 
-	printf("%s\n", text.c_str());
+	//printf("%s\n", text.c_str());
 
-	logFile.open(fileName, std::ios_base::app); // append instead of overwrite
-	logFile << text; //logFile.write(text.c_str(), text.length());
+	// append instead of overwrite
+	logFile.open(fileName, std::ios_base::app); 
+	logFile << text;
+
+	logFile.close();
 
 	flushing = false;
 }

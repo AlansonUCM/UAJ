@@ -20,6 +20,8 @@
 #include <fstream>
 #include <string>
 
+#include "Utils.h"
+
 using json = nlohmann::json;
 
 Tracker* Tracker::instance = nullptr;
@@ -70,9 +72,9 @@ void Tracker::end()
 void Tracker::trackInstantaneousEvent(std::string name, std::map<std::string, double> eventProperties, bool checkpoint)
 {
 	TrackerEvent event = InstantaneousEvent();
-	double timestamp = std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();
+	//double timestamp = std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();
 	event.setName(name);
-	event.setTimestamp(timestamp);
+	event.setTimestamp(Utils::getTime()); //timestamp);
 	event.setSessionID(sessionId);
 	event.setCheckpoint(checkpoint);
 
@@ -82,9 +84,9 @@ void Tracker::trackInstantaneousEvent(std::string name, std::map<std::string, do
 void Tracker::trackProgressEvent(std::string name, std::map<std::string, double> eventProperties, bool checkpoint, int state)
 {
 	TrackerEvent event = ProgressionEvent();
-	double timestamp = std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();
+	//double timestamp = std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();
 	event.setName(name);
-	event.setTimestamp(timestamp);
+	event.setTimestamp(Utils::getTime());
 	event.setSessionID(sessionId);
 	event.setCheckpoint(checkpoint);
 
@@ -96,9 +98,9 @@ void Tracker::trackProgressEvent(std::string name, std::map<std::string, double>
 void Tracker::trackSamplingEvent(std::string name, std::map<std::string, double> eventProperties, bool checkpoint)
 {
 	TrackerEvent event =  SamplingEvent();
-	double timestamp = std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();
+	//double timestamp = std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();
 	event.setName(name);
-	event.setTimestamp(timestamp);
+	event.setTimestamp(Utils::getTime());
 	event.setSessionID(sessionId);
 	event.setCheckpoint(checkpoint);
 
@@ -110,9 +112,9 @@ void Tracker::trackSamplingEvent(std::string name, std::map<std::string, double>
 void Tracker::trackTimeBasedEvent(std::string name, std::map<std::string, double> eventProperties, bool checkpoint, bool end)
 {
 	TrackerEvent event = TimeBasedEvent();
-	double timestamp = std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();
+	//double timestamp = std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();
 	event.setName(name);
-	event.setTimestamp(timestamp);
+	event.setTimestamp(Utils::getTime());
 	event.setSessionID(sessionId);
 	event.setCheckpoint(checkpoint);
 
