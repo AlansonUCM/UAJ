@@ -29,12 +29,11 @@ Tracker::~Tracker()
 void Tracker::init()
 {
 	// Lee el fichero .config y configura el tracker
-	std::ifstream file(".config");
-	json j;
-	file >> j;
+	std::ifstream file("config.json");
+	json j = json::parse(file);
 
-	std::string persistenceType = "File";//j["persistence"];
-	std::string serializerType = "JSON";//j["serializer"];
+	std::string persistenceType = /*"File"*/ *j.find("persistence");
+	std::string serializerType = /*"JSON"*/*j.find("serializer");
 	//std::string serializerType = j["deactivatedEvents"];
 
 	// Inicializa sistema de persistencia y serializacion
@@ -47,14 +46,11 @@ void Tracker::init()
 	persistenceObject->init(serializerType);
 
 	// Crea hilo
-	exit = false;
 	thread = new std::thread(&IPersistence::update, persistenceObject);
-
 }
 
 void Tracker::end()
 {
-	exit = true;
 	thread->join();
 
 	delete thread;
@@ -63,11 +59,11 @@ void Tracker::end()
 void Tracker::trackEvent(const TrackerEvent& e)
 {
 	// Funcion que se llama desde el juego
-	int i = 0;
+	/*int i = 0;
 	while (i < activeTrackers.size() && !activeTrackers[i]->accept(e))
 		i++;
 
-	if (i < activeTrackers.size())
+	if (i < activeTrackers.size())*/
 		persistenceObject->send(e);
 }
 

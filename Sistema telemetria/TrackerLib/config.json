@@ -1,0 +1,5 @@
+{
+    "persistence" : "File",
+    "serializer" : "JSON",
+    "deactivatedEvents" : []
+}

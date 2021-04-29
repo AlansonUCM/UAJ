@@ -94,7 +94,7 @@ std::string TrackerEvent::toJSON() const
 		i++;
 	}
 
-	return j.dump();
+	return j.dump(-1,'\n');
 }
 
 std::string TrackerEvent::toCSV() const

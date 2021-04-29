@@ -1,9 +1,14 @@
 #pragma once
 
+#include <fstream>
+
 #include "IPersistence.h"
 
 class FilePersistence : public IPersistence
 {
+private:
+	std::ofstream logFile;
+	std::string fileName;
 
 public:
 	FilePersistence();

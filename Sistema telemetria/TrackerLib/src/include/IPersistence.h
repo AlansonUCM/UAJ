@@ -1,6 +1,7 @@
 #pragma once
 
 #include <queue>
+#include <atomic>
 
 #include "ConcurrentQueue.h"
 #include "TrackerEvent.h"
@@ -14,7 +15,9 @@ private:
 protected:
 	enum class PersistenceMode { Checkpoint, Timed };
 	PersistenceMode mode = PersistenceMode::Checkpoint;
-	bool exit = false;
+
+	std::atomic_bool exit;
+	std::atomic_bool flushing;
 
 	ISerializer* serializer = nullptr;
 	ConcurrentQueue<TrackerEvent> eventQueue;
