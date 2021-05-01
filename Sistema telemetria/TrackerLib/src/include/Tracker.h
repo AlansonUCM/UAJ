@@ -5,6 +5,7 @@
 #include <map>
 
 #include "TrackerExports.h"
+#include "Factory.h"
 
 class IPersistence;
 class ITrackerAsset;
@@ -19,8 +20,12 @@ private:
 
 	std::string sessionId;
 
+	Factory<ITrackerAsset> trackersFactory;
+	Factory<IPersistence> persistanceFactory;
+
 	std::thread* thread;
 	void trackEvent(TrackerEvent* e);
+	void initFactories();
 
 public:
 	Tracker();

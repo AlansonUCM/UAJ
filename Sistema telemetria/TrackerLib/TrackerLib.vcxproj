@@ -23,6 +23,7 @@
     <ClInclude Include="src\include\CSVSerializer.h" />
     <ClInclude Include="src\include\FilePersistence.h" />
     <ClInclude Include="src\include\InstantaneousEvent.h" />
+    <ClInclude Include="src\include\InstantaneousTracker.h" />
     <ClInclude Include="src\include\IPersistence.h" />
     <ClInclude Include="src\include\ISerializer.h" />
     <ClInclude Include="src\include\ITrackerAsset.h" />
@@ -32,29 +33,35 @@
     <ClInclude Include="src\include\ProgressionEvent.h" />
     <ClInclude Include="src\include\ProgressionTracker.h" />
     <ClInclude Include="src\include\SamplingEvent.h" />
+    <ClInclude Include="src\include\SamplingTracker.h" />
     <ClInclude Include="src\include\ServerPersistence.h" />
     <ClInclude Include="src\include\TimeBasedEvent.h" />
+    <ClInclude Include="src\include\TimeBasedTracker.h" />
+    <ClInclude Include="src\include\Factory.h" />
     <ClInclude Include="src\include\Utils.h" />
     <ClInclude Include="src\include\Tracker.h" />
     <ClInclude Include="src\include\TrackerExports.h" />
     <ClInclude Include="src\include\TrackerEvent.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\src\machineID.cpp" />
     <ClCompile Include="src\src\main.cpp" />
-    <ClCompile Include="src\src\md5Hash.cpp" />
     <ClCompile Include="src\src\Persistance\FilePersistence.cpp" />
     <ClCompile Include="src\src\Persistance\ServerPersistence.cpp" />
     <ClCompile Include="src\src\Serialization\CSVSerializer.cpp" />
     <ClCompile Include="src\src\Serialization\JSONSerializer.cpp" />
-    <ClCompile Include="src\src\Utils.cpp" />
+    <ClCompile Include="src\src\TrackerAssets\InstantaneousTracker.cpp" />
+    <ClCompile Include="src\src\TrackerAssets\SamplingTracker.cpp" />
     <ClCompile Include="src\src\Tracker.cpp" />
     <ClCompile Include="src\src\TrackerAssets\ProgressionTracker.cpp" />
+    <ClCompile Include="src\src\TrackerAssets\TimeBasedTracker.cpp" />
     <ClCompile Include="src\src\TrackerEvents\InstantaneousEvent.cpp" />
     <ClCompile Include="src\src\TrackerEvents\ProgressionEvent.cpp" />
     <ClCompile Include="src\src\TrackerEvents\SamplingEvent.cpp" />
     <ClCompile Include="src\src\TrackerEvents\TimeBasedEvent.cpp" />
     <ClCompile Include="src\src\TrackerEvents\TrackerEvent.cpp" />
+    <ClCompile Include="src\src\Utils\machineID.cpp" />
+    <ClCompile Include="src\src\Utils\md5Hash.cpp" />
+    <ClCompile Include="src\src\Utils\Utils.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

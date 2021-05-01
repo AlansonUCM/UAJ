@@ -1,12 +1,12 @@
+#include "ProgressionTracker.h"
 
 #include "TrackerEvent.h"
-#include "ProgressionTracker.h"
 
 ProgressionTracker::ProgressionTracker()
 {
 }
 
-bool ProgressionTracker::accept(TrackerEvent e)
+bool ProgressionTracker::accept(const TrackerEvent& e)
 {
-	return false;
+	return e.getType() == "Progression";
 }

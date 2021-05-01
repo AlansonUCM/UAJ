@@ -1,5 +1,5 @@
 {
-    "persistence" : "File",
-    "serializer" : "JSON",
-    "deactivatedEvents" : []
+    "persistence" : "FilePersistence",
+    "serializer" : "JSONSerializer",
+    "activeTrackers" : ["InstantaneousTracker", "SamplingTracker", "TimeBasedTracker", "ProgressionTracker"]
 }

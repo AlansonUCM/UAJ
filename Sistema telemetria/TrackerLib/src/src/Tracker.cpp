@@ -1,5 +1,9 @@
 #include "Tracker.h"
 
+#include <json.hpp>
+#include <fstream>
+#include <string>
+
 #include "IPersistence.h"
 #include "ITrackerAsset.h"
 #include "TrackerEvent.h"
@@ -12,14 +16,13 @@
 #include "ProgressionEvent.h"
 #include "SamplingEvent.h"
 
+#include "InstantaneousTracker.h"
+#include "SamplingTracker.h"
+#include "TimeBasedTracker.h"
+#include "ProgressionTracker.h"
+
 #include "machineID.h"
 #include "md5Hash.h"
-
-#include "json.hpp"
-
-#include <fstream>
-#include <string>
-
 #include "Utils.h"
 
 using json = nlohmann::json;
@@ -37,22 +40,26 @@ Tracker::~Tracker()
 
 void Tracker::init()
 {
+	initFactories();
+
 	// Lee el fichero .config y configura el tracker
 	std::ifstream file("config.json");
 	json j = json::parse(file);
 
-	std::string persistenceType = /*"File"*/ *j.find("persistence");
-	std::string serializerType = /*"JSON"*/*j.find("serializer");
-	//std::string serializerType = j["deactivatedEvents"];
+	std::string persistenceType = *j.find("persistence");
+	std::string serializerType = *j.find("serializer");
+	json activeTrackersJson = *j.find("activeTrackers");
+
+	for (json::iterator it = activeTrackersJson.begin(); it != activeTrackersJson.end(); ++it) {
+		ITrackerAsset* tracker = trackersFactory.create(*it);
+		if (tracker != nullptr)
+			activeTrackers.push_back(tracker);
+	}
 
 	// Inicializa sistema de persistencia y serializacion
-	// TODO: mejor una factoria
-	if (persistenceType == "File")
-		persistenceObject = new FilePersistence();
-	else if (persistenceType == "Server")
-		persistenceObject = new ServerPersistence();
-
-	persistenceObject->init(serializerType);
+	persistenceObject = persistanceFactory.create(persistenceType);
+	if (persistenceObject != nullptr)
+		persistenceObject->init(serializerType);
 
 	//Obtiene el ID de la sesion
 	double timestamp = std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();
@@ -72,7 +79,6 @@ void Tracker::end()
 void Tracker::trackInstantaneousEvent(std::string name, std::map<std::string, std::string> eventProperties, bool checkpoint)
 {
 	InstantaneousEvent* event = new InstantaneousEvent();
-	//double timestamp = std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();
 	event->setType("Instantaneous");
 	event->setName(name);
 	event->setTimestamp(Utils::getTime()); //timestamp);
@@ -86,7 +92,6 @@ void Tracker::trackInstantaneousEvent(std::string name, std::map<std::string, st
 void Tracker::trackProgressEvent(std::string name, std::map<std::string, std::string> eventProperties, bool checkpoint, int state)
 {
 	ProgressionEvent* event = new ProgressionEvent();
-	//double timestamp = std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();
 	event->setType("Progression");
 	event->setName(name);
 	event->setTimestamp(Utils::getTime());
@@ -103,7 +108,6 @@ void Tracker::trackProgressEvent(std::string name, std::map<std::string, std::st
 void Tracker::trackSamplingEvent(std::string name, std::map<std::string, std::string> eventProperties, bool checkpoint)
 {
 	SamplingEvent* event = new SamplingEvent();
-	//double timestamp = std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();
 	event->setType("Sampling");
 	event->setName(name);
 	event->setTimestamp(Utils::getTime());
@@ -119,7 +123,6 @@ void Tracker::trackSamplingEvent(std::string name, std::map<std::string, std::st
 void Tracker::trackTimeBasedEvent(std::string name, std::map<std::string, std::string> eventProperties, bool checkpoint, bool end)
 {
 	TimeBasedEvent* event = new TimeBasedEvent();
-	//double timestamp = std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();
 	event->setType("TimeBased");
 	event->setName(name);
 	event->setTimestamp(Utils::getTime());
@@ -135,7 +138,23 @@ void Tracker::trackTimeBasedEvent(std::string name, std::map<std::string, std::s
 
 void Tracker::trackEvent(TrackerEvent* e)
 {
-	persistenceObject->send(e);
+	int i = 0;
+	while (i < activeTrackers.size() && !activeTrackers[i]->accept(*e))
+		i++;
+
+	if (i < activeTrackers.size())
+		persistenceObject->send(e);
+}
+
+void Tracker::initFactories()
+{
+	trackersFactory.registerType<InstantaneousTracker>("InstantaneousTracker");
+	trackersFactory.registerType<TimeBasedTracker>("TimeBasedTracker");
+	trackersFactory.registerType<SamplingTracker>("SamplingTracker");
+	trackersFactory.registerType<ProgressionTracker>("ProgressionTracker");
+
+	persistanceFactory.registerType<FilePersistence>("FilePersistence");
+	persistanceFactory.registerType<ServerPersistence>("ServerPersistence");
 }
 
 Tracker* Tracker::getInstance()

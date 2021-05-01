@@ -19,14 +19,13 @@ FilePersistence::~FilePersistence()
 
 void FilePersistence::init(const std::string& type)
 {
+	serializerFactory.registerType<JSONSerializer>("JSONSerializer");
+	serializerFactory.registerType<CSVSerializer>("CSVSerializer");
+
 	exit = false;
 
-	// TODO: mejor una factoria
 	// Crea el serializer
-	if (type == "JSON")
-		serializer = new JSONSerializer();
-	else if (type == "CSV")
-		serializer = new CSVSerializer();
+	serializer = serializerFactory.create(type);
 
 	// Crea el archivo de trazas para esta sesion
 	// con nombre: fecha y hora

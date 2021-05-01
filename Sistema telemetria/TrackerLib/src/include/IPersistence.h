@@ -5,6 +5,7 @@
 
 #include "ConcurrentQueue.h"
 #include "TrackerEvent.h"
+#include "Factory.h"
 
 class ISerializer;
 
@@ -21,6 +22,7 @@ protected:
 
 	ISerializer* serializer = nullptr;
 	ConcurrentQueue<TrackerEvent*> eventQueue;
+	Factory<ISerializer> serializerFactory;
 
 	std::queue<TrackerEvent*> eventsToFlush;
 

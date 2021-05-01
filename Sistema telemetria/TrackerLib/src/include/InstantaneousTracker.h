@@ -2,12 +2,13 @@
 
 #include "ITrackerAsset.h"
 
-class ProgressionTracker : public ITrackerAsset
+class InstantaneousTracker : public ITrackerAsset
 {
 private:
 
 public:
-	ProgressionTracker();
+	InstantaneousTracker();
 
 	bool accept(const TrackerEvent& e);
 };
+
