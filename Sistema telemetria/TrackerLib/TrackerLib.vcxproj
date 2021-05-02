@@ -22,6 +22,7 @@
     <ClInclude Include="src\include\ConcurrentQueue.h" />
     <ClInclude Include="src\include\CSVSerializer.h" />
     <ClInclude Include="src\include\FilePersistence.h" />
+    <ClInclude Include="src\include\httplib.h" />
     <ClInclude Include="src\include\InstantaneousEvent.h" />
     <ClInclude Include="src\include\InstantaneousTracker.h" />
     <ClInclude Include="src\include\IPersistence.h" />

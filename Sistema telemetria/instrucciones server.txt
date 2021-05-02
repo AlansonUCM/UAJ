@@ -1,0 +1,5 @@
+1- Ejecutar Server/setup-run.sh
+2- Configurar el tracker para usar el server en .config
+3- Ejecutar tracker para enviar las trazas
+4- Para ver las trazas que hay en el server:
+	Server/logs/data.txt

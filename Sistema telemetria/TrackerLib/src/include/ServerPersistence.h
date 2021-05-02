@@ -2,10 +2,12 @@
 
 #include "IPersistence.h"
 
+#include "httplib.h"
+
 class ServerPersistence : public IPersistence
 {
 private:
-
+	httplib::Client* client = nullptr;
 
 public:
 	ServerPersistence();

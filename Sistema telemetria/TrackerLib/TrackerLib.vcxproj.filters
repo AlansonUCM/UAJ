@@ -99,6 +99,9 @@
     <ClInclude Include="src\include\Factory.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="src\include\httplib.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\src\TrackerEvents\ProgressionEvent.cpp">

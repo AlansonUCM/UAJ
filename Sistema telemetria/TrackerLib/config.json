@@ -1,5 +1,5 @@
 {
-    "persistence" : "FilePersistence",
+    "persistence" : "ServerPersistence",
     "serializer" : "JSONSerializer",
     "activeTrackers" : ["InstantaneousTracker", "SamplingTracker", "TimeBasedTracker", "ProgressionTracker"]
 }
