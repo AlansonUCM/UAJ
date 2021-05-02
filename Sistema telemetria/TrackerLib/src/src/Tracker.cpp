@@ -47,6 +47,8 @@ void Tracker::init()
 	json j = json::parse(file);
 
 	std::string persistenceType = *j.find("persistence");
+	std::string persistenceMode = *j.find("persistenceMode");
+	double timeRate = *j.find("timeRate");
 	std::string serializerType = *j.find("serializer");
 	json activeTrackersJson = *j.find("activeTrackers");
 
@@ -59,7 +61,7 @@ void Tracker::init()
 	// Inicializa sistema de persistencia y serializacion
 	persistenceObject = persistanceFactory.create(persistenceType);
 	if (persistenceObject != nullptr)
-		persistenceObject->init(serializerType);
+		persistenceObject->init(serializerType, persistenceMode, timeRate);
 
 	//Obtiene el ID de la sesion
 	double timestamp = std::chrono::duration<double>(std::chrono::system_clock::now().time_since_epoch()).count();

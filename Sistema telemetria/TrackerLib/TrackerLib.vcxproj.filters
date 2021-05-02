@@ -102,6 +102,9 @@
     <ClInclude Include="src\include\httplib.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="src\include\Chrono.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\src\TrackerEvents\ProgressionEvent.cpp">
@@ -157,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="src\src\TrackerAssets\TimeBasedTracker.cpp">
       <Filter>Archivos de origen\TrackerAssets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\src\Chrono.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

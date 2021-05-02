@@ -6,6 +6,8 @@
 
 #include "Utils.h"
 
+#include "Chrono.h"
+
 using jsonf = nlohmann::json;
 
 FilePersistence::FilePersistence()
@@ -17,8 +19,11 @@ FilePersistence::~FilePersistence()
 {
 }
 
-void FilePersistence::init(const std::string& type)
+void FilePersistence::init(const std::string& type, const std::string& mode, const double& timeRate)
 {
+	this->mode = mode;
+	this->timeRate = timeRate;
+
 	serializerFactory.registerType<JSONSerializer>("JSONSerializer");
 	serializerFactory.registerType<CSVSerializer>("CSVSerializer");
 
@@ -42,8 +47,23 @@ void FilePersistence::end()
 
 void FilePersistence::update()
 {
+	Chrono::start();
+
 	while (!exit)
 	{
+		// Timer
+		if (mode == "Timed")
+		{
+			if (time < timeRate)
+				time += Chrono::getDeltaTime() / 1000.0;
+			else
+			{
+				flush();
+				time = 0.0f;
+			}
+		}
+
+
 		if (eventQueue.empty())
 			continue;
 
@@ -54,9 +74,11 @@ void FilePersistence::update()
 
 		// Si el modo de volcado es por checkpoint
 		// y es un evento checkpoint, se hace flush
-		if (mode == PersistenceMode::Checkpoint && e->getCheckpoint())
+		if (mode == "Checkpoint" && e->getCheckpoint())
 			flush();
 	}
+
+	Chrono::stop();
 }
 
 void FilePersistence::send(TrackerEvent* e)

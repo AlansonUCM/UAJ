@@ -13,7 +13,7 @@ public:
 	ServerPersistence();
 	~ServerPersistence();
 
-	virtual void init(const std::string& type);
+	virtual void init(const std::string& type, const std::string& mode, const double& timeRate);
 	virtual void end();
 
 	virtual void update();

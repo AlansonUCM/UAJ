@@ -3,6 +3,8 @@
 #include "JSONSerializer.h"
 #include "CSVSerializer.h"
 
+#include "Chrono.h"
+
 ServerPersistence::ServerPersistence()
 {
 
@@ -13,8 +15,11 @@ ServerPersistence::~ServerPersistence()
 
 }
 
-void ServerPersistence::init(const std::string& type)
+void ServerPersistence::init(const std::string& type, const std::string& mode, const double& timeRate)
 {
+	this->mode = mode;
+	this->timeRate = timeRate;
+
 	serializerFactory.registerType<JSONSerializer>("JSONSerializer");
 	serializerFactory.registerType<CSVSerializer>("CSVSerializer");
 
@@ -38,8 +43,22 @@ void ServerPersistence::end()
 
 void ServerPersistence::update()
 {
+	Chrono::start();
+
 	while (!exit)
 	{
+		// Timer
+		if (mode == "Timed")
+		{
+			if (time < timeRate)
+				time += Chrono::getDeltaTime() / 1000.0;
+			else
+			{
+				flush();
+				time = 0.0f;
+			}
+		}
+
 		if (eventQueue.empty())
 			continue;
 
@@ -50,9 +69,11 @@ void ServerPersistence::update()
 
 		// Si el modo de volcado es por checkpoint
 		// y es un evento checkpoint, se hace flush
-		if (mode == PersistenceMode::Checkpoint && e->getCheckpoint())
+		if (mode == "Checkpoint" && e->getCheckpoint())
 			flush();
 	}
+
+	Chrono::stop();
 }
 
 void ServerPersistence::send(TrackerEvent* e)

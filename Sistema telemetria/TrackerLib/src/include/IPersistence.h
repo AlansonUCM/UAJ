@@ -14,8 +14,10 @@ class IPersistence
 private:
 
 protected:
-	enum class PersistenceMode { Checkpoint, Timed };
-	PersistenceMode mode = PersistenceMode::Checkpoint;
+	std::string mode = "";
+
+	double time = 0.0;
+	double timeRate = 0.0;
 
 	std::atomic_bool exit;
 	std::atomic_bool flushing;
@@ -27,7 +29,7 @@ protected:
 	std::queue<TrackerEvent*> eventsToFlush;
 
 public:
-	virtual void init(const std::string& type) = 0;
+	virtual void init(const std::string& type, const std::string& mode, const double& timeRate) = 0;
 	virtual void end() = 0;
 
 	virtual void update() = 0;

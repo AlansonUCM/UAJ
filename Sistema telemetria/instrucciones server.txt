@@ -3,3 +3,4 @@
 3- Ejecutar tracker para enviar las trazas
 4- Para ver las trazas que hay en el server:
 	Server/logs/data.txt
+5- Para cerrar el server: en la consola del server hacer CTRL+C
