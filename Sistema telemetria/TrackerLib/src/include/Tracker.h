@@ -20,6 +20,9 @@ private:
 
 	std::string sessionId;
 
+	std::map<std::string, float> samplingEvents;
+	float samplingTimer = 2000;
+
 	Factory<ITrackerAsset> trackersFactory;
 	Factory<IPersistence> persistanceFactory;
 

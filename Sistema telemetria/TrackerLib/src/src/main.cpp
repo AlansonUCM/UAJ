@@ -8,19 +8,20 @@ int main()
 	tracker->init();
 
 	// Prueba
-	tracker->trackInstantaneousEvent("BossHit", {});
 	tracker->trackInstantaneousEvent("AmmoCollected", {});
+	tracker->trackInstantaneousEvent("BossHit", {});
 	tracker->trackInstantaneousEvent("EndLevel", {}, true);
 
 	Sleep(2000);
 
-	tracker->trackInstantaneousEvent("PlayerShoot", {});
+	tracker->trackSamplingEvent("PlayerHit", {});
+	tracker->trackSamplingEvent("PlayerShoot", {});
 	tracker->trackProgressEvent("normalolololo", {}, false, 1);
 	tracker->trackTimeBasedEvent("normalelelele", {}, false, false);
 
-	Sleep(2000);
+	Sleep(3000);
 
-	tracker->trackInstantaneousEvent("PlayerShoot", {});
+	tracker->trackSamplingEvent("PlayerShoot", {});
 	tracker->trackInstantaneousEvent("PlayerDie", {}, true);
 
 	while (true);

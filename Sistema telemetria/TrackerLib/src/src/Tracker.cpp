@@ -24,6 +24,7 @@
 #include "machineID.h"
 #include "md5Hash.h"
 #include "Utils.h"
+#include "Chrono.h"
 
 using json = nlohmann::json;
 
@@ -117,9 +118,18 @@ void Tracker::trackSamplingEvent(std::string name, std::map<std::string, std::st
 	event->setCheckpoint(checkpoint);
 	event->setEventProperties(eventProperties);
 
-	//Add Sampling (Añadir el evento recurrentemente a la cola)????
-
-	trackEvent(event);
+	auto it = samplingEvents.find(name);
+	if (it == samplingEvents.end())
+	{
+		samplingEvents[name] = Chrono::getDeltaTime();
+		trackEvent(event);
+	}
+	else
+	{
+		float currentSamplingTime = Chrono::getDeltaTime();
+		if (currentSamplingTime - (*it).second > samplingTimer) trackEvent(event);
+		(*it).second = currentSamplingTime;
+	}
 }
 
 void Tracker::trackTimeBasedEvent(std::string name, std::map<std::string, std::string> eventProperties, bool checkpoint, bool end)
