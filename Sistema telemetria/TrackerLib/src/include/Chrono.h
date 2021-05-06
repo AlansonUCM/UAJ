@@ -9,10 +9,9 @@ private:
 	static double lastTime;
 	static std::chrono::system_clock::time_point startTime;
 
-	static double getTicks();
-
 public:
 	static void start();
 	static double stop();
 	static double getDeltaTime();
+	static double getTicks();
 };

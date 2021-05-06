@@ -31,7 +31,7 @@ using json = nlohmann::json;
 
 Tracker* Tracker::instance = nullptr;
 
-std::string readJsonString(std::ifstream & json)
+std::string readJsonString(std::ifstream& json)
 {
 	char c;
 	std::string result;
@@ -43,7 +43,7 @@ std::string readJsonString(std::ifstream & json)
 		{
 			result += c;
 			json >> c;
-			
+
 		}
 	} while (c != '"' && c != '\n' && !json.eof());
 	json >> c;
@@ -56,7 +56,7 @@ Tracker::Tracker()
 
 Tracker::~Tracker()
 {
-//	delete instance;
+	//	delete instance;
 }
 
 void Tracker::init()
@@ -74,9 +74,9 @@ void Tracker::init()
 	double timeRate;
 	std::string serializerType;
 	char itChar;
-	
+
 	if (file.is_open()) {
-		
+
 		std::getline(file, help);
 		while (!file.eof()) {
 			size_t index;
@@ -86,7 +86,7 @@ void Tracker::init()
 			if (help == "persistence")
 			{
 				persistenceType = readJsonString(file);
-				
+
 			}
 			else if (help == "persistenceMode")
 			{
@@ -96,6 +96,8 @@ void Tracker::init()
 			{
 				file >> timeRate;
 				file >> help;
+
+				samplingTimer = timeRate * 1000;
 			}
 			else if (help == "serializer")
 			{
@@ -104,17 +106,17 @@ void Tracker::init()
 			else if (help == "activeTrackers")
 			{
 				file >> itChar;
-				while (help != ""&& !file.eof())
+				while (help != "" && !file.eof())
 				{
-					help=readJsonString(file);
-					
-					if(help != "")
+					help = readJsonString(file);
+
+					if (help != "")
 					{
 						ITrackerAsset* tracker = trackersFactory.create(help);
 						if (tracker != nullptr)
 							activeTrackers.push_back(tracker);
 					}
-				
+
 				}
 			}
 		}
@@ -143,7 +145,7 @@ void Tracker::init(std::string gameId, std::string userId)
 
 void Tracker::end()
 {
-	
+
 	persistenceObject->end();
 	thread->join();
 	delete persistenceObject;
@@ -166,7 +168,7 @@ void Tracker::trackInstantaneousEvent(std::string name, std::map<std::string, st
 	event->setSessionID(sessionId);
 	event->setCheckpoint(checkpoint);
 	event->setEventProperties(eventProperties);
-	
+
 
 	trackEvent(event);
 }
@@ -205,14 +207,17 @@ void Tracker::trackSamplingEvent(std::string name, std::map<std::string, std::st
 	auto it = samplingEvents.find(name);
 	if (it == samplingEvents.end())
 	{
-		samplingEvents[name] = Chrono::getDeltaTime();
+		samplingEvents[name] = Chrono::getTicks();
 		trackEvent(event);
 	}
 	else
 	{
-		float currentSamplingTime = Chrono::getDeltaTime();
-		if (currentSamplingTime - (*it).second > samplingTimer) trackEvent(event);
-		(*it).second = currentSamplingTime;
+		float currentSamplingTime = Chrono::getTicks();
+		if (currentSamplingTime - (*it).second > samplingTimer)
+		{
+			(*it).second = currentSamplingTime;
+			trackEvent(event);
+		}
 	}
 }
 

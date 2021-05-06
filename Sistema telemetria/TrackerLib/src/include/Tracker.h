@@ -22,7 +22,7 @@ private:
 	std::string userID;
 
 	std::map<std::string, float> samplingEvents;
-	float samplingTimer = 2000;
+	float samplingTimer;
 
 	Factory<ITrackerAsset> trackersFactory;
 	Factory<IPersistence> persistanceFactory;
