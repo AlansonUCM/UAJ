@@ -1,6 +1,7 @@
 #pragma once
 #include "ITrackerAsset.h"
-class TimeBasedTracker : public ITrackerAsset
+#include "TrackerExports.h"
+class TRACKER_CORE_API TimeBasedTracker : public ITrackerAsset
 {
 private:
 

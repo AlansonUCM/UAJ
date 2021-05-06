@@ -36,7 +36,7 @@ documentation and/or software.
 
 #include <cstring>
 #include <iostream>
-
+#include "TrackerExports.h"
 
 // a small class for calculating MD5 hashes of strings or byte arrays
 // it is not meant to be fast or secure
@@ -48,7 +48,7 @@ documentation and/or software.
 //      MD5(std::string).hexdigest()
 //
 // assumes that char is 8 bit and int is 32 bit
-class MD5
+class TRACKER_CORE_API MD5
 {
 public:
 	typedef unsigned int size_type; // must be 32bit

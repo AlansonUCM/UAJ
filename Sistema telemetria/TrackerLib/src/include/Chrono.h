@@ -1,8 +1,8 @@
 #pragma once
 
 #include <chrono>
-
-class Chrono
+#include "TrackerExports.h"
+class TRACKER_CORE_API Chrono
 {
 private:
 	static double tickInicial;

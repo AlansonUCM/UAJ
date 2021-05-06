@@ -3,8 +3,8 @@
 #include <fstream>
 
 #include "IPersistence.h"
-
-class FilePersistence : public IPersistence
+#include "TrackerExports.h"
+class TRACKER_CORE_API FilePersistence : public IPersistence
 {
 private:
 	std::ofstream logFile;

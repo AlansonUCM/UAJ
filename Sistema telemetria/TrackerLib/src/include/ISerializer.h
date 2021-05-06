@@ -1,10 +1,10 @@
 #pragma once
 
 #include <string>
-
+#include "TrackerExports.h"
 class TrackerEvent;
 
-class ISerializer
+class TRACKER_CORE_API ISerializer
 {
 private:
 

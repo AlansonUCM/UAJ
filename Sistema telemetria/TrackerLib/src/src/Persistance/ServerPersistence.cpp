@@ -38,6 +38,7 @@ void ServerPersistence::init(const std::string& type, const std::string& mode, c
 
 void ServerPersistence::end()
 {
+	
 	exit = true;
 }
 
@@ -72,8 +73,10 @@ void ServerPersistence::update()
 		if (mode == "Checkpoint" && e->getCheckpoint())
 			flush();
 	}
-
+	flush();
 	Chrono::stop();
+	delete serializer;
+	delete client;
 }
 
 void ServerPersistence::send(TrackerEvent* e)
@@ -101,8 +104,8 @@ void ServerPersistence::flush()
 		eventsToFlush.pop();
 		delete e;
 	}
-
-	httplib::Result res = client->Post("/tracker", text, "text/plain");
+	if(text!="")
+		httplib::Result res = client->Post("/tracker", text, "text/plain");
 
 	flushing = false;
 }

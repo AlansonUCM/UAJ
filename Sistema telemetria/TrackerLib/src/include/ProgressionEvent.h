@@ -1,9 +1,9 @@
 #pragma once
 #include "TrackerEvent.h"
-
+#include "TrackerExports.h"
 enum class State { Started, Progressed, Finished };
 
-class ProgressionEvent : public TrackerEvent
+class  TRACKER_CORE_API ProgressionEvent : public TrackerEvent
 {
 private:
 	State state;

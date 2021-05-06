@@ -5,7 +5,7 @@
 int main()
 {
 	Tracker* tracker = Tracker::getInstance();
-	tracker->init();
+	//tracker->init();
 
 	// Prueba
 	tracker->trackInstantaneousEvent("AmmoCollected", {});

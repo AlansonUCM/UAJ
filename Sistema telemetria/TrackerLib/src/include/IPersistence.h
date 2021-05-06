@@ -6,10 +6,11 @@
 #include "ConcurrentQueue.h"
 #include "TrackerEvent.h"
 #include "Factory.h"
+#include "TrackerExports.h"
 
 class ISerializer;
 
-class IPersistence
+class TRACKER_CORE_API IPersistence
 {
 private:
 

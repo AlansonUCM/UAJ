@@ -1,6 +1,6 @@
 #pragma comment(lib, "iphlpapi.lib")
 #include <string>
-
-std::string machineHash();
+#include "TrackerExports.h"
+TRACKER_CORE_API std::string machineHash();
 
 

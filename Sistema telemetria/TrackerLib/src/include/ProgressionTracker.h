@@ -1,8 +1,8 @@
 #pragma once
 
 #include "ITrackerAsset.h"
-
-class ProgressionTracker : public ITrackerAsset
+#include "TrackerExports.h"
+class TRACKER_CORE_API ProgressionTracker : public ITrackerAsset
 {
 private:
 

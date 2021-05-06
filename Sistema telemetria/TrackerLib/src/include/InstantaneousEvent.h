@@ -1,7 +1,7 @@
 #pragma once
 #include "TrackerEvent.h"
-
-class InstantaneousEvent : public TrackerEvent
+#include "TrackerExports.h"
+class TRACKER_CORE_API InstantaneousEvent : public TrackerEvent
 {
 public:
 	InstantaneousEvent();

@@ -42,6 +42,7 @@ void FilePersistence::init(const std::string& type, const std::string& mode, con
 
 void FilePersistence::end()
 {
+	
 	exit = true;
 }
 
@@ -77,8 +78,10 @@ void FilePersistence::update()
 		if (mode == "Checkpoint" && e->getCheckpoint())
 			flush();
 	}
+	flush();
 
 	Chrono::stop();
+	delete serializer;
 }
 
 void FilePersistence::send(TrackerEvent* e)

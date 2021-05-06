@@ -1,7 +1,7 @@
 #pragma once
 #include "TrackerEvent.h"
-
-class TimeBasedEvent : public TrackerEvent
+#include "TrackerExports.h"
+class TRACKER_CORE_API TimeBasedEvent : public TrackerEvent
 {
 private:
 	bool state;

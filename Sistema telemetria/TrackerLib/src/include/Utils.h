@@ -3,8 +3,8 @@
 #include <string>
 #include <ctime>
 #include <fstream>
-
-class Utils
+#include "TrackerExports.h"
+class TRACKER_CORE_API Utils
 {
 private:
 

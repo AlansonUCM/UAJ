@@ -2,9 +2,9 @@
 #include <thread>
 #include <mutex>
 #include <condition_variable>
-
+#include "TrackerExports.h"
 template <typename T>
-class ConcurrentQueue
+class TRACKER_CORE_API ConcurrentQueue
 {
 public:
 

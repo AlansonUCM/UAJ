@@ -1,7 +1,7 @@
 #pragma once
 #include "TrackerEvent.h"
-
-class SamplingEvent : public TrackerEvent
+#include "TrackerExports.h"
+class TRACKER_CORE_API SamplingEvent : public TrackerEvent
 {
 public:
 	SamplingEvent();

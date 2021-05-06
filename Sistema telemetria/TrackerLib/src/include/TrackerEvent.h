@@ -3,10 +3,11 @@
 #include <vector>
 #include <map>
 #include "json.hpp"
+#include "TrackerExports.h"
 
 using json = nlohmann::json;
 
-class TrackerEvent
+class TRACKER_CORE_API TrackerEvent
 {
 private:
 	std::string gameID, sessionID, userID;

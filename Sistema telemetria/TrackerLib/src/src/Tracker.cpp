@@ -2,6 +2,7 @@
 
 #include <json.hpp>
 #include <fstream>
+#include<iostream>
 #include <string>
 
 #include "IPersistence.h"
@@ -30,13 +31,32 @@ using json = nlohmann::json;
 
 Tracker* Tracker::instance = nullptr;
 
+std::string readJsonString(std::ifstream & json)
+{
+	char c;
+	std::string result;
+	json >> c;
+	do
+	{
+		json >> c;
+		while (c != '"' && c != '\n' && !json.eof())
+		{
+			result += c;
+			json >> c;
+			
+		}
+	} while (c != '"' && c != '\n' && !json.eof());
+	json >> c;
+	return result;
+}
+
 Tracker::Tracker()
 {
 }
 
 Tracker::~Tracker()
 {
-	delete instance;
+//	delete instance;
 }
 
 void Tracker::init()
@@ -44,20 +64,62 @@ void Tracker::init()
 	initFactories();
 
 	// Lee el fichero .config y configura el tracker
-	std::ifstream file("config.json");
-	json j = json::parse(file);
+	std::ifstream file;//("config.json");
+	file.open("config.json");
+	//bool ok = file.is_open();
+	std::string help;
 
-	std::string persistenceType = *j.find("persistence");
-	std::string persistenceMode = *j.find("persistenceMode");
-	double timeRate = *j.find("timeRate");
-	std::string serializerType = *j.find("serializer");
-	json activeTrackersJson = *j.find("activeTrackers");
+	std::string persistenceType;
+	std::string persistenceMode;
+	double timeRate;
+	std::string serializerType;
+	char itChar;
+	
+	if (file.is_open()) {
+		
+		std::getline(file, help);
+		while (!file.eof()) {
+			size_t index;
+			help = readJsonString(file);
 
-	for (json::iterator it = activeTrackersJson.begin(); it != activeTrackersJson.end(); ++it) {
-		ITrackerAsset* tracker = trackersFactory.create(*it);
-		if (tracker != nullptr)
-			activeTrackers.push_back(tracker);
+
+			if (help == "persistence")
+			{
+				persistenceType = readJsonString(file);
+				
+			}
+			else if (help == "persistenceMode")
+			{
+				persistenceMode = readJsonString(file);
+			}
+			else if (help == "timeRate")
+			{
+				file >> timeRate;
+				file >> help;
+			}
+			else if (help == "serializer")
+			{
+				serializerType = readJsonString(file);
+			}
+			else if (help == "activeTrackers")
+			{
+				file >> itChar;
+				while (help != ""&& !file.eof())
+				{
+					help=readJsonString(file);
+					
+					if(help != "")
+					{
+						ITrackerAsset* tracker = trackersFactory.create(help);
+						if (tracker != nullptr)
+							activeTrackers.push_back(tracker);
+					}
+				
+				}
+			}
+		}
 	}
+
 
 	// Inicializa sistema de persistencia y serializacion
 	persistenceObject = persistanceFactory.create(persistenceType);
@@ -72,22 +134,39 @@ void Tracker::init()
 	thread = new std::thread(&IPersistence::update, persistenceObject);
 }
 
+void Tracker::init(std::string gameId, std::string userId)
+{
+	gameID = gameId;
+	userID = userId;
+	init();
+}
+
 void Tracker::end()
 {
+	
+	persistenceObject->end();
 	thread->join();
-
+	delete persistenceObject;
+	while (activeTrackers.size() != 0)
+	{
+		delete activeTrackers.back();
+		activeTrackers.pop_back();
+	}
 	delete thread;
 }
 
 void Tracker::trackInstantaneousEvent(std::string name, std::map<std::string, std::string> eventProperties, bool checkpoint)
 {
 	InstantaneousEvent* event = new InstantaneousEvent();
+	event->setGameID(gameID);
+	event->setUserID(userID);
 	event->setType("Instantaneous");
 	event->setName(name);
 	event->setTimestamp(Utils::getTime()); //timestamp);
 	event->setSessionID(sessionId);
 	event->setCheckpoint(checkpoint);
 	event->setEventProperties(eventProperties);
+	
 
 	trackEvent(event);
 }
@@ -95,6 +174,8 @@ void Tracker::trackInstantaneousEvent(std::string name, std::map<std::string, st
 void Tracker::trackProgressEvent(std::string name, std::map<std::string, std::string> eventProperties, bool checkpoint, int state)
 {
 	ProgressionEvent* event = new ProgressionEvent();
+	event->setGameID(gameID);
+	event->setUserID(userID);
 	event->setType("Progression");
 	event->setName(name);
 	event->setTimestamp(Utils::getTime());
@@ -111,12 +192,15 @@ void Tracker::trackProgressEvent(std::string name, std::map<std::string, std::st
 void Tracker::trackSamplingEvent(std::string name, std::map<std::string, std::string> eventProperties, bool checkpoint)
 {
 	SamplingEvent* event = new SamplingEvent();
+	event->setGameID(gameID);
+	event->setUserID(userID);
 	event->setType("Sampling");
 	event->setName(name);
 	event->setTimestamp(Utils::getTime());
 	event->setSessionID(sessionId);
 	event->setCheckpoint(checkpoint);
 	event->setEventProperties(eventProperties);
+
 
 	auto it = samplingEvents.find(name);
 	if (it == samplingEvents.end())
@@ -135,6 +219,8 @@ void Tracker::trackSamplingEvent(std::string name, std::map<std::string, std::st
 void Tracker::trackTimeBasedEvent(std::string name, std::map<std::string, std::string> eventProperties, bool checkpoint, bool end)
 {
 	TimeBasedEvent* event = new TimeBasedEvent();
+	event->setGameID(gameID);
+	event->setUserID(userID);
 	event->setType("TimeBased");
 	event->setName(name);
 	event->setTimestamp(Utils::getTime());
@@ -169,10 +255,17 @@ void Tracker::initFactories()
 	persistanceFactory.registerType<ServerPersistence>("ServerPersistence");
 }
 
+
+
 Tracker* Tracker::getInstance()
 {
 	if (instance == nullptr)
 		instance = new Tracker();
 
 	return instance;
+}
+
+void Tracker::deleteInstance()
+{
+	delete instance;
 }

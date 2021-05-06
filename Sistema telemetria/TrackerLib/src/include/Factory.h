@@ -1,11 +1,11 @@
 #pragma once
 
 #include <map>
-
+#include "TrackerExports.h"
 class ITrackerAsset;
 
 template <typename T>
-class Factory
+class TRACKER_CORE_API Factory
 {
 public:
 	template <typename TChild>
@@ -13,6 +13,7 @@ public:
 		static_assert(std::is_base_of<T, TChild>::value, "Factory::registerType doesn't accept this type because doesn't derive from base class");
 		createFunctions[name] = &createFunction<TChild>;
 	}
+
 
 	T* create(std::string name) {
 		auto it = createFunctions.find(name);

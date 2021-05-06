@@ -1,10 +1,10 @@
 #pragma once
 
 #include "IPersistence.h"
-
+#include "TrackerExports.h"
 #include "httplib.h"
 
-class ServerPersistence : public IPersistence
+class TRACKER_CORE_API ServerPersistence : public IPersistence
 {
 private:
 	httplib::Client* client = nullptr;

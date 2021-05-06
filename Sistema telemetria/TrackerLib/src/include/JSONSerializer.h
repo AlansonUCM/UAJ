@@ -2,8 +2,8 @@
 
 #include <string>
 #include "ISerializer.h"
-
-class JSONSerializer : public ISerializer
+#include "TrackerExports.h"
+class TRACKER_CORE_API JSONSerializer : public ISerializer
 {
 private:
 
